@@ -31,5 +31,11 @@ public class Telefonia extends Servicio
 	{
 		this.llamadasIlimitadas = llamadasIlimitadas;
 	}
-	
+	@Override
+	public float calcularPrecioBase() {
+	    if (llamadasIlimitadas) {
+	        return 850;
+	    }
+	    return minutos * 1.5f;
+	}
 }

@@ -7,12 +7,12 @@ public class Producto {
 	private String marca;
 	private String tipoProducto;
 	private int stock;
-	private boolean disponicble;
+	private boolean disponible;
 	private boolean estado;
 	private float precio;
 	
 	
-	public Producto(String id, String descripcion, String marca, String tipoProducto, int stock, boolean disponicble,
+	public Producto(String id, String descripcion, String marca, String tipoProducto, int stock, boolean disponible,
 			boolean estado, float precio) {
 		super();
 		this.id = id;
@@ -20,7 +20,7 @@ public class Producto {
 		this.marca = marca;
 		this.tipoProducto = tipoProducto;
 		this.stock = stock;
-		this.disponicble = disponicble;
+		this.disponible = disponible;
 		this.estado = estado;
 		this.precio = precio;
 	}
@@ -76,13 +76,13 @@ public class Producto {
 	}
 
 
-	public boolean isDisponicble() {
-		return disponicble;
+	public boolean isDisponible() {
+		return disponible;
 	}
 
 
-	public void setDisponicble(boolean disponicble) {
-		this.disponicble = disponicble;
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 
 

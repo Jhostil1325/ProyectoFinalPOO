@@ -11,9 +11,7 @@ public class Altice {
 	private ArrayList<Pago> misPagos;
 	private ArrayList<Contrato> misContratos;
 	
-	public Altice(ArrayList<Persona> misPersonas, ArrayList<Plan> misPlanes,
-			ArrayList<Servicio> misServicios, ArrayList<Producto> misProductos, ArrayList<Pago> misPagos,
-			ArrayList<Contrato> misContratos) {
+	public Altice() {
 		super();
 		this.misPersonas = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();

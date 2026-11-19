@@ -19,11 +19,11 @@ public class DetalleVenta {
 		this.miProducto = miProducto;
 	}
 
-	public int getCalidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 
-	public void setCalidad(int cantidad) {
+	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 

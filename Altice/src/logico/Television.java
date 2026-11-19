@@ -32,4 +32,16 @@ public class Television extends Servicio
 		Calidad = calidad;
 	}
 	
+	@Override
+	public float calcularPrecioBase() {
+	    float precio = cantCanales * 10;
+	    if (Calidad != null && Calidad.equalsIgnoreCase("4K")) {
+	        precio += 400;
+	    } else if (Calidad != null && Calidad.equalsIgnoreCase("HD")) {
+	        precio += 200;
+	    }
+	    return precio;
+	}
+	
+	
 }

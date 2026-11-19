@@ -32,4 +32,12 @@ public class Internet extends Servicio
 		this.tipoConexion = tipoConexion;
 	}
 	
+	@Override
+	public float calcularPrecioBase() {
+	    float precio = velocidad * 15;
+	    if (tipoConexion != null && tipoConexion.equalsIgnoreCase("Fibra Optica")) {
+	        precio += 500.0f;
+	    }
+	    return precio;
+	}
 }

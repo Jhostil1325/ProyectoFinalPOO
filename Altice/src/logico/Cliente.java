@@ -16,11 +16,11 @@ public class Cliente extends Persona
 			ArrayList<Pago> misPagos)
 	{
 		super(id, nombre, cedula, direccion, telefono, miUsuario);
-		carrito = new ArrayList<>();
+		this.carrito = new ArrayList<>();
 		this.carritoPlan = carritoPlan;
-		misContratos = new ArrayList<>();
+		this.misContratos = new ArrayList<>();
 		this.fechaInactivacion = fechaInactivacion;
-		misPagos = new ArrayList<>();
+		this.misPagos = new ArrayList<>();
 	}
 	
 	public ArrayList<DetalleVenta> getCarrito()

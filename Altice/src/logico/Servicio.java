@@ -1,6 +1,6 @@
 package logico;
 
-public class Servicio
+public abstract class Servicio
 {
 	protected String id;
 	protected String descripcion;
@@ -44,4 +44,5 @@ public class Servicio
 		this.enPlan = enPlan;
 	}
 	
+	public abstract float calcularPrecioBase();
 }

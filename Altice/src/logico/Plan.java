@@ -9,7 +9,7 @@ public class Plan {
 	private boolean estado;
 	private ArrayList<Servicio> misServicios;
 	
-	public Plan(String id, float precioMensual, boolean estado, ArrayList<Servicio> misServicios) {
+	public Plan(String id, float precioMensual, boolean estado) {
 		super();
 		this.id = id;
 		this.precioMensual = precioMensual;
