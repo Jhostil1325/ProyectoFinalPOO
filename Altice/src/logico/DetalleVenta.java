@@ -3,12 +3,12 @@ package logico;
 public class DetalleVenta {
 
 	private Producto miProducto;
-	private int calidad;
+	private int cantidad;
 	
-	public DetalleVenta(Producto miProducto, int calidad) {
+	public DetalleVenta(Producto miProducto, int cantidad) {
 		super();
 		this.miProducto = miProducto;
-		this.calidad = calidad;
+		this.cantidad = cantidad;
 	}
 
 	public Producto getMiProducto() {
@@ -20,11 +20,11 @@ public class DetalleVenta {
 	}
 
 	public int getCalidad() {
-		return calidad;
+		return cantidad;
 	}
 
-	public void setCalidad(int calidad) {
-		this.calidad = calidad;
+	public void setCalidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 }
