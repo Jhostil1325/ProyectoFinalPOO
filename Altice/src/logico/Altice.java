@@ -5,19 +5,17 @@ import java.util.ArrayList;
 public class Altice {
 
 	private ArrayList<Persona> misPersonas;
-	private ArrayList<Local> misLocales;
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Servicio> misServicios;
 	private ArrayList<Producto> misProductos;
 	private ArrayList<Pago> misPagos;
 	private ArrayList<Contrato> misContratos;
 	
-	public Altice(ArrayList<Persona> misPersonas, ArrayList<Local> misLocales, ArrayList<Plan> misPlanes,
+	public Altice(ArrayList<Persona> misPersonas, ArrayList<Plan> misPlanes,
 			ArrayList<Servicio> misServicios, ArrayList<Producto> misProductos, ArrayList<Pago> misPagos,
 			ArrayList<Contrato> misContratos) {
 		super();
 		this.misPersonas = new ArrayList<>();
-		this.misLocales = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
 		this.misServicios = new ArrayList<>();
 		this.misProductos = new ArrayList<>();
@@ -31,14 +29,6 @@ public class Altice {
 
 	public void setMisPersonas(ArrayList<Persona> misPersonas) {
 		this.misPersonas = misPersonas;
-	}
-
-	public ArrayList<Local> getMisLocales() {
-		return misLocales;
-	}
-
-	public void setMisLocales(ArrayList<Local> misLocales) {
-		this.misLocales = misLocales;
 	}
 
 	public ArrayList<Plan> getMisPlanes() {

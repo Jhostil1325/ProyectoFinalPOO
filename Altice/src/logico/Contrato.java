@@ -7,8 +7,6 @@ public class Contrato {
 	private String id;
 	private Cliente miCliente;
 	private Comercial facilitador;
-	private Trabajador tecnico;
-	private Local miLocal;
 	private String metodoPago;
 	private Plan miPlan;
 	private Date fechaUltimoPago;
@@ -16,14 +14,12 @@ public class Contrato {
 	private boolean activo;
 	
 	
-	public Contrato(String id, Cliente miCliente, Comercial facilitador, Trabajador tecnico, Local miLocal,
-			String metodoPago, Plan miPlan, Date fechaUltimoPago, Date fechaIni, boolean activo) {
+	public Contrato(String id, Cliente miCliente, Comercial facilitador, String metodoPago, Plan miPlan, 
+			Date fechaUltimoPago, Date fechaIni, boolean activo) {
 		super();
 		this.id = id;
 		this.miCliente = miCliente;
 		this.facilitador = facilitador;
-		this.tecnico = tecnico;
-		this.miLocal = miLocal;
 		this.metodoPago = metodoPago;
 		this.miPlan = miPlan;
 		this.fechaUltimoPago = fechaUltimoPago;
@@ -61,27 +57,7 @@ public class Contrato {
 		this.facilitador = facilitador;
 	}
 
-
-	public Trabajador getTecnico() {
-		return tecnico;
-	}
-
-
-	public void setTecnico(Trabajador tecnico) {
-		this.tecnico = tecnico;
-	}
-
-
-	public Local getMiLocal() {
-		return miLocal;
-	}
-
-
-	public void setMiLocal(Local miLocal) {
-		this.miLocal = miLocal;
-	}
-
-
+	
 	public String getMetodoPago() {
 		return metodoPago;
 	}

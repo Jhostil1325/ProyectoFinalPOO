@@ -8,19 +8,17 @@ public class Pago {
 	private String id;
 	private Cliente miCliente;
 	private Comercial facilitador;
-	private Local miLocal;
 	private String metodoPago;
 	private ArrayList<DetalleVenta> detalles;
 	private Date fechaPago;
 	private float totalPago;
 	
-	public Pago(String id, Cliente miCliente, Comercial facilitador, Local miLocal, String metodoPago,
+	public Pago(String id, Cliente miCliente, Comercial facilitador, String metodoPago,
 			ArrayList<DetalleVenta> detalles, Date fechaPago, float totalPago) {
 		super();
 		this.id = id;
 		this.miCliente = miCliente;
 		this.facilitador = facilitador;
-		this.miLocal = miLocal;
 		this.metodoPago = metodoPago;
 		this.detalles = new ArrayList<>();
 		this.fechaPago = fechaPago;
@@ -49,14 +47,6 @@ public class Pago {
 
 	public void setFacilitador(Comercial facilitador) {
 		this.facilitador = facilitador;
-	}
-
-	public Local getMiLocal() {
-		return miLocal;
-	}
-
-	public void setMiLocal(Local miLocal) {
-		this.miLocal = miLocal;
 	}
 
 	public String getMetodoPago() {
