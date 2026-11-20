@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Contrato {
-
+public class Contrato implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private Cliente miCliente;
 	private Comercial facilitador;
