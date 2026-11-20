@@ -55,7 +55,7 @@ public class Login extends JFrame {
 						empresa2 = new FileOutputStream("altice.dat");
 						empresaWrite = new ObjectOutputStream(empresa2);
 						
-						Usuario userAdmin = new Usuario("USR-1", "Admin", "Admin", "admin@altice.do", true, new Date());
+						Usuario userAdmin = new Usuario("USR-1", "Admin", "Admin", "admin@altice.do", true, new Date(),"Administrativo");
 						Administrativo admin = new Administrativo("EMP-1", "Administrador General", "000-0000000-0", 
 								"Sede Central", "809-000-0000", userAdmin, 50000f, 0f, 0f, "Sede Central", "Gerente");
 						

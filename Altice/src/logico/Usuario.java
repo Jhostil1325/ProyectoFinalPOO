@@ -11,8 +11,9 @@ public class Usuario implements Serializable{
 	private String correo;
 	private boolean estado;
 	private Date creacion;
+	private String tipo;
 	
-	public Usuario(String id, String nombre, String contrasena, String correo, boolean estado, Date creacion) {
+	public Usuario(String id, String nombre, String contrasena, String correo, boolean estado, Date creacion, String tipo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -20,6 +21,7 @@ public class Usuario implements Serializable{
 		this.correo = correo;
 		this.estado = estado;
 		this.creacion = creacion;
+		this.tipo = tipo;
 	}
 
 	public String getId() {
@@ -68,6 +70,14 @@ public class Usuario implements Serializable{
 
 	public void setCreacion(Date creacion) {
 		this.creacion = creacion;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 

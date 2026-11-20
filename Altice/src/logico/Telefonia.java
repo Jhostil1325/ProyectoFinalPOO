@@ -2,6 +2,7 @@ package logico;
 
 public class Telefonia extends Servicio
 {
+	private static final long serialVersionUID = 1L;
 	private int minutos;
 	private boolean llamadasIlimitadas;
 	

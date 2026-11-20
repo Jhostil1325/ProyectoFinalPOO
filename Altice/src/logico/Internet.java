@@ -2,6 +2,7 @@ package logico;
 
 public class Internet extends Servicio
 {
+	private static final long serialVersionUID = 1L;
 	private int velocidad;
 	private String tipoConexion;
 	

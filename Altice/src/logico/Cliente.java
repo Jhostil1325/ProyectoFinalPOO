@@ -5,22 +5,27 @@ import java.util.Date;
 
 public class Cliente extends Persona
 {
+	private static final long serialVersionUID = 1L;
 	private ArrayList<DetalleVenta> carrito;
 	private Plan carritoPlan;
 	private ArrayList<Contrato> misContratos;
-	private Date fechaInactivacion;
 	private ArrayList<Pago>misPagos;
+	private float deuda;
+	private int facturaPendientes;
+	private boolean activo;
 	
 	public Cliente(String id, String nombre, String cedula, String direccion, String telefono, Usuario miUsuario,
-			ArrayList<DetalleVenta> carrito, Plan carritoPlan, ArrayList<Contrato> misContratos, Date fechaInactivacion,
-			ArrayList<Pago> misPagos)
+			ArrayList<DetalleVenta> carrito, Plan carritoPlan, ArrayList<Contrato> misContratos,
+			ArrayList<Pago> misPagos, float deuda, int facturaPendientes)
 	{
 		super(id, nombre, cedula, direccion, telefono, miUsuario);
 		this.carrito = new ArrayList<>();
 		this.carritoPlan = carritoPlan;
 		this.misContratos = new ArrayList<>();
-		this.fechaInactivacion = fechaInactivacion;
 		this.misPagos = new ArrayList<>();
+		this.deuda = deuda;
+		this.facturaPendientes = facturaPendientes;
+		this.activo = true;
 	}
 	
 	public ArrayList<DetalleVenta> getCarrito()
@@ -47,14 +52,6 @@ public class Cliente extends Persona
 	{
 		this.misContratos = misContratos;
 	}
-	public Date getFechaInactivacion()
-	{
-		return fechaInactivacion;
-	}
-	public void setFechaInactivacion(Date fechaInactivacion)
-	{
-		this.fechaInactivacion = fechaInactivacion;
-	}
 	public ArrayList<Pago> getMisPagos()
 	{
 		return misPagos;
@@ -62,5 +59,29 @@ public class Cliente extends Persona
 	public void setMisPagos(ArrayList<Pago> misPagos)
 	{
 		this.misPagos = misPagos;
+	}
+
+	public float getDeuda() {
+		return deuda;
+	}
+
+	public void setDeuda(float deuda) {
+		deuda = deuda;
+	}
+
+	public int getFacturaPendientes() {
+		return facturaPendientes;
+	}
+
+	public void setFacturaPendientes(int facturaPendientes) {
+		this.facturaPendientes = facturaPendientes;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 }

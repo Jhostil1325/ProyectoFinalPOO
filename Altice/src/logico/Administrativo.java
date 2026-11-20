@@ -2,6 +2,7 @@ package logico;
 
 public class Administrativo extends Empleado
 {
+	private static final long serialVersionUID = 1L;
 	private String cargo;
 
 	public Administrativo(String id, String nombre, String cedula, String direccion, String telefono, Usuario miUsuario,

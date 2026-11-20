@@ -2,6 +2,7 @@ package logico;
 
 public class Comercial extends Empleado
 {
+	private static final long serialVersionUID = 1L;
 	private float metaVentas;
 
 	public Comercial(String id, String nombre, String cedula, String direccion, String telefono, Usuario miUsuario,
