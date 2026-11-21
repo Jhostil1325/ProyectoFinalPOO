@@ -109,5 +109,55 @@ public class Altice implements Serializable {
 		this.misContratos = misContratos;
 	}
 	
+	public boolean existeCedula(String cedula)
+	{
+		for (Persona p : misPersonas)
+		{
+			if (p.getCedula() != null && p.getCedula().equalsIgnoreCase(cedula))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public Cliente buscarClienteCed(String cedula)
+	{
+		for (Persona p : misPersonas)
+		{
+			if (p instanceof Cliente && p.getCedula().equalsIgnoreCase(cedula.trim()))
+			{
+				return (Cliente) p;
+			}
+		}
+		return null;
+	}
+
+	public String generarIdCliente()
+	{
+		return "CLI-" + (getClientes().size() + 1);
+	}
+
+	public boolean registrarCliente(Cliente cliente)
+	{
+		if (existeCedula(cliente.getCedula()))
+		{
+			return false;
+		}
+		misPersonas.add(cliente);
+		return true;
+	}
+
+	public ArrayList<Cliente> getClientes()
+	{
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		for (Persona p : misPersonas)
+		{
+			if (p instanceof Cliente)
+			{
+				clientes.add((Cliente) p);
+			}
+		}
+		return clientes;
+	}
 }
