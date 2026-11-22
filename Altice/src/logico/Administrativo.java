@@ -5,10 +5,12 @@ public class Administrativo extends Empleado
 	private static final long serialVersionUID = 1L;
 	private String cargo;
 
-	public Administrativo(String id, String nombre, String cedula, String direccion, String telefono, Usuario miUsuario,
-			float sueldobase, float comisionmensual, float comisiontotal, String miLocal, String cargo)
+	public Administrativo(String id, String nombre, String cedula, String direccion, String telefono, String usuario,
+			String password, float sueldobase, float comisionmensual, float comisiontotal, String miLocal,
+			String cargo)
 	{
-		super(id, nombre, cedula, direccion, telefono, miUsuario, sueldobase, comisionmensual, comisiontotal, miLocal);
+		super(id, nombre, cedula, direccion, telefono, usuario, password, sueldobase, comisionmensual, comisiontotal,
+				miLocal);
 		this.cargo = cargo;
 	}
 

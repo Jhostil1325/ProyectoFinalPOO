@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Altice implements Serializable {
-	
+public class Altice implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 	private static Altice altice = null;
 	private static Persona loginuser = null;
@@ -15,8 +15,9 @@ public class Altice implements Serializable {
 	private ArrayList<Producto> misProductos;
 	private ArrayList<Pago> misPagos;
 	private ArrayList<Contrato> misContratos;
-	
-	public Altice() {
+
+	public Altice()
+	{
 		super();
 		this.misPersonas = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
@@ -26,94 +27,130 @@ public class Altice implements Serializable {
 		this.misContratos = new ArrayList<>();
 	}
 
-	
-	 public static Altice getInstance() {
-		 if(altice == null) {
-			 altice = new Altice();
-		 }
-		 return altice;
-	 }
-	 
-	 public static void setAltice(Altice temp) {
-			altice = temp;
+	public static Altice getInstance()
+	{
+		if (altice == null)
+		{
+			altice = new Altice();
 		}
+		return altice;
+	}
 
-		public static Persona getLoginUser() {
-			return loginuser;
-		}
+	public static void setAltice(Altice temp)
+	{
+		altice = temp;
+	}
 
-		public static void setLoginUser(Persona user) {
-			loginuser = user;
-		}
+	public static Persona getLoginUser()
+	{
+		return loginuser;
+	}
 
-		public void regPersona(Persona p) {
-			misPersonas.add(p);
-		}
+	public static void setLoginUser(Persona user)
+	{
+		loginuser = user;
+	}
 
-		public boolean confirmLogin(String username, String password) {
-			for (Persona p : misPersonas) {
-				if (p.getMiUsuario() != null && p.getMiUsuario().isEstado()) {
-					if (p.getMiUsuario().getNombre().equals(username) && 
-					    p.getMiUsuario().getContrasena().equals(password)) {
-						loginuser = p;
-						return true;
-					}
+	public void regPersona(Persona p)
+	{
+		misPersonas.add(p);
+	}
+
+	public boolean confirmLogin(String username, String password)
+	{
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p.getUsuario() != null && p.getPassword() != null)
+			{
+				if (p.getUsuario().equals(username) && p.getPassword().equals(password))
+				{
+					loginuser = p;
+					return true;
 				}
 			}
-			return false;
 		}
-	public ArrayList<Persona> getMisPersonas() {
+		return false;
+	}
+
+	public boolean existeUsuario(String username)
+	{
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p.getUsuario() != null && p.getUsuario().equalsIgnoreCase(username.trim()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public ArrayList<Persona> getMisPersonas()
+	{
 		return misPersonas;
 	}
 
-	public void setMisPersonas(ArrayList<Persona> misPersonas) {
+	public void setMisPersonas(ArrayList<Persona> misPersonas)
+	{
 		this.misPersonas = misPersonas;
 	}
 
-	public ArrayList<Plan> getMisPlanes() {
+	public ArrayList<Plan> getMisPlanes()
+	{
 		return misPlanes;
 	}
 
-	public void setMisPlanes(ArrayList<Plan> misPlanes) {
+	public void setMisPlanes(ArrayList<Plan> misPlanes)
+	{
 		this.misPlanes = misPlanes;
 	}
 
-	public ArrayList<Servicio> getMisServicios() {
+	public ArrayList<Servicio> getMisServicios()
+	{
 		return misServicios;
 	}
 
-	public void setMisServicios(ArrayList<Servicio> misServicios) {
+	public void setMisServicios(ArrayList<Servicio> misServicios)
+	{
 		this.misServicios = misServicios;
 	}
 
-	public ArrayList<Producto> getMisProductos() {
+	public ArrayList<Producto> getMisProductos()
+	{
 		return misProductos;
 	}
 
-	public void setMisProductos(ArrayList<Producto> misProductos) {
+	public void setMisProductos(ArrayList<Producto> misProductos)
+	{
 		this.misProductos = misProductos;
 	}
 
-	public ArrayList<Pago> getMisPagos() {
+	public ArrayList<Pago> getMisPagos()
+	{
 		return misPagos;
 	}
 
-	public void setMisPagos(ArrayList<Pago> misPagos) {
+	public void setMisPagos(ArrayList<Pago> misPagos)
+	{
 		this.misPagos = misPagos;
 	}
 
-	public ArrayList<Contrato> getMisContratos() {
+	public ArrayList<Contrato> getMisContratos()
+	{
 		return misContratos;
 	}
 
-	public void setMisContratos(ArrayList<Contrato> misContratos) {
+	public void setMisContratos(ArrayList<Contrato> misContratos)
+	{
 		this.misContratos = misContratos;
 	}
-	
+
 	public boolean existeCedula(String cedula)
 	{
-		for (Persona p : misPersonas)
+		for (int i = 0; i < misPersonas.size(); i++)
 		{
+			Persona p = misPersonas.get(i);
 			if (p.getCedula() != null && p.getCedula().equalsIgnoreCase(cedula))
 			{
 				return true;
@@ -124,8 +161,9 @@ public class Altice implements Serializable {
 
 	public Cliente buscarClienteCed(String cedula)
 	{
-		for (Persona p : misPersonas)
+		for (int i = 0; i < misPersonas.size(); i++)
 		{
+			Persona p = misPersonas.get(i);
 			if (p instanceof Cliente && p.getCedula().equalsIgnoreCase(cedula.trim()))
 			{
 				return (Cliente) p;
@@ -141,7 +179,7 @@ public class Altice implements Serializable {
 
 	public boolean registrarCliente(Cliente cliente)
 	{
-		if (existeCedula(cliente.getCedula()))
+		if (existeCedula(cliente.getCedula()) || existeUsuario(cliente.getUsuario()))
 		{
 			return false;
 		}
@@ -152,8 +190,9 @@ public class Altice implements Serializable {
 	public ArrayList<Cliente> getClientes()
 	{
 		ArrayList<Cliente> clientes = new ArrayList<>();
-		for (Persona p : misPersonas)
+		for (int i = 0; i < misPersonas.size(); i++)
 		{
+			Persona p = misPersonas.get(i);
 			if (p instanceof Cliente)
 			{
 				clientes.add((Cliente) p);
@@ -161,28 +200,64 @@ public class Altice implements Serializable {
 		}
 		return clientes;
 	}
-	
-	public String generarIdContrato() {
+
+	public String generarIdEmpleado()
+	{
+		return "EMP-" + (getEmpleados().size() + 1);
+	}
+
+	public boolean registrarEmpleado(Empleado empleado)
+	{
+		if (existeCedula(empleado.getCedula()) || existeUsuario(empleado.getUsuario()))
+		{
+			return false;
+		}
+		misPersonas.add(empleado);
+		return true;
+	}
+
+	public ArrayList<Empleado> getEmpleados()
+	{
+		ArrayList<Empleado> empleados = new ArrayList<>();
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p instanceof Empleado)
+			{
+				empleados.add((Empleado) p);
+			}
+		}
+		return empleados;
+	}
+
+	public String generarIdContrato()
+	{
 		return "CON-" + (misContratos.size() + 1);
 	}
 
-	public String generarIdPago() {
+	public String generarIdPago()
+	{
 		return "FAC-" + (misPagos.size() + 1);
 	}
 
-	public ArrayList<Plan> obtenerPlanesActivos() {
+	public ArrayList<Plan> obtenerPlanesActivos()
+	{
 		ArrayList<Plan> activos = new ArrayList<>();
-		for (int i = 0; i < misPlanes.size(); i++) {
+		for (int i = 0; i < misPlanes.size(); i++)
+		{
 			Plan p = misPlanes.get(i);
-			if (p.isEstado()) {
+			if (p.isEstado())
+			{
 				activos.add(p);
 			}
 		}
 		return activos;
 	}
 
-	public Contrato crearContrato(Cliente cliente, Comercial facilitador, Plan plan, String metodoPago) {
-		if (cliente.getDeuda() > 0 || cliente.getFacturaPendientes() > 0) {
+	public Contrato crearContrato(Cliente cliente, Comercial facilitador, Plan plan, String metodoPago)
+	{
+		if (cliente.getDeuda() > 0 || cliente.getFacturaPendientes() > 0)
+		{
 			return null;
 		}
 
@@ -208,13 +283,16 @@ public class Altice implements Serializable {
 		return nuevo;
 	}
 
-	public int generarFacturacionMensual() {
+	public int generarFacturacionMensual()
+	{
 		int facturasGeneradas = 0;
 		Date hoy = new Date();
 
-		for (int i = 0; i < misContratos.size(); i++) {
+		for (int i = 0; i < misContratos.size(); i++)
+		{
 			Contrato c = misContratos.get(i);
-			if (c.isActivo()) {
+			if (c.isActivo())
+			{
 				Cliente cli = c.getMiCliente();
 				float subtotal = c.getMiPlan().getPrecioMensual();
 				float itbis = subtotal * 0.18f;
@@ -231,9 +309,11 @@ public class Altice implements Serializable {
 				cli.setFacturaPendientes(cli.getFacturaPendientes() + 1);
 				facturasGeneradas++;
 
-				if (cli.getFacturaPendientes() > 2) {
+				if (cli.getFacturaPendientes() > 2)
+				{
 					cli.setActivo(false);
-					for (int j = 0; j < cli.getMisContratos().size(); j++) {
+					for (int j = 0; j < cli.getMisContratos().size(); j++)
+					{
 						cli.getMisContratos().get(j).setActivo(false);
 					}
 				}
@@ -242,11 +322,14 @@ public class Altice implements Serializable {
 		return facturasGeneradas;
 	}
 
-	public ArrayList<Pago> obtenerFacturasPendientesCliente(Cliente cliente) {
+	public ArrayList<Pago> obtenerFacturasPendientesCliente(Cliente cliente)
+	{
 		ArrayList<Pago> pendientes = new ArrayList<>();
-		for (int i = 0; i < cliente.getMisPagos().size(); i++) {
+		for (int i = 0; i < cliente.getMisPagos().size(); i++)
+		{
 			Pago p = cliente.getMisPagos().get(i);
-			if (!p.isPagada()) {
+			if (!p.isPagada())
+			{
 				pendientes.add(p);
 			}
 		}
@@ -254,25 +337,30 @@ public class Altice implements Serializable {
 	}
 
 	public float procesarCobroFacturas(Cliente cliente, Comercial facilitador, ArrayList<Pago> aPagar,
-			String metodoPago, float montoRecibido) {
+			String metodoPago, float montoRecibido)
+	{
 		float totalCobrado = 0.0f;
-		for (int i = 0; i < aPagar.size(); i++) {
+		for (int i = 0; i < aPagar.size(); i++)
+		{
 			totalCobrado += aPagar.get(i).getTotalPago();
 		}
 
-		if (montoRecibido < totalCobrado) {
+		if (montoRecibido < totalCobrado)
+		{
 			return -1.0f;
 		}
 
 		float devuelta = montoRecibido - totalCobrado;
 		Date hoy = new Date();
 
-		for (int i = 0; i < aPagar.size(); i++) {
+		for (int i = 0; i < aPagar.size(); i++)
+		{
 			Pago p = aPagar.get(i);
 			p.setPagada(true);
 			p.setFechaPago(hoy);
 			p.setMetodoPago(metodoPago);
-			if (facilitador != null) {
+			if (facilitador != null)
+			{
 				p.setFacilitador(facilitador);
 			}
 			p.setMontoRecibido(montoRecibido);
@@ -280,35 +368,39 @@ public class Altice implements Serializable {
 		}
 
 		float nuevaDeuda = cliente.getDeuda() - totalCobrado;
-		if (nuevaDeuda < 0.01f) {
+		if (nuevaDeuda < 0.01f)
+		{
 			nuevaDeuda = 0.0f;
 		}
 		cliente.setDeuda(nuevaDeuda);
 
 		int nuevasPendientes = cliente.getFacturaPendientes() - aPagar.size();
-		if (nuevasPendientes < 0) {
+		if (nuevasPendientes < 0)
+		{
 			nuevasPendientes = 0;
 		}
 		cliente.setFacturaPendientes(nuevasPendientes);
 
-		if (cliente.getFacturaPendientes() <= 2) {
+		if (cliente.getFacturaPendientes() <= 2)
+		{
 			cliente.setActivo(true);
-			for (int i = 0; i < cliente.getMisContratos().size(); i++) {
+			for (int i = 0; i < cliente.getMisContratos().size(); i++)
+			{
 				Contrato c = cliente.getMisContratos().get(i);
 				c.setActivo(true);
 				c.setFechaUltimoPago(hoy);
 			}
 		}
 
-		if (facilitador != null) {
+		if (facilitador != null)
+		{
 			facilitador.setComisionmensual(facilitador.getComisionmensual() + (totalCobrado * 0.05f));
 			facilitador.setComisiontotal(facilitador.getComisiontotal() + (totalCobrado * 0.05f));
 		}
 
 		return devuelta;
 	}
-	
-	
+
 	public String generarIdServicio()
 	{
 		return "SRV-" + (misServicios.size() + 1);
@@ -329,7 +421,3 @@ public class Altice implements Serializable {
 		misPlanes.add(p);
 	}
 }
-
-
-	
-

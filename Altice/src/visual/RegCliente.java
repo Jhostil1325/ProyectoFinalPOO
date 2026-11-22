@@ -122,7 +122,7 @@ public class RegCliente extends JDialog
 			return;
 		}
 
-		Cliente cliente = new Cliente(txtId.getText(), nombre, cedula, direccion, telefono, null,
+		Cliente cliente = new Cliente(txtId.getText(), nombre, cedula, direccion, telefono, cedula, cedula,
 				new ArrayList<DetalleVenta>(), null, new ArrayList<Contrato>(), new ArrayList<Pago>(), 0f, 0);
 
 		if (Altice.getInstance().registrarCliente(cliente))

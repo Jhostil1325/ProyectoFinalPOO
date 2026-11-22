@@ -7,11 +7,11 @@ public class Empleado extends Persona
 	protected float comisionmensual;
 	protected float comisiontotal;
 	protected String miLocal;
-	
-	public Empleado(String id, String nombre, String cedula, String direccion, String telefono, Usuario miUsuario,
-			float sueldobase, float comisionmensual, float comisiontotal, String miLocal)
+
+	public Empleado(String id, String nombre, String cedula, String direccion, String telefono, String usuario,
+			String password, float sueldobase, float comisionmensual, float comisiontotal, String miLocal)
 	{
-		super(id, nombre, cedula, direccion, telefono, miUsuario);
+		super(id, nombre, cedula, direccion, telefono, usuario, password);
 		this.sueldobase = sueldobase;
 		this.comisionmensual = comisionmensual;
 		this.comisiontotal = comisiontotal;
@@ -57,9 +57,4 @@ public class Empleado extends Persona
 	{
 		this.miLocal = miLocal;
 	}
-	
-
-
-	
-	
 }

@@ -10,9 +10,11 @@ public class Persona implements Serializable
 	protected String cedula;
 	protected String direccion;
 	protected String telefono;
-	protected Usuario miUsuario;
-	
-	public Persona(String id, String nombre, String cedula, String direccion, String telefono, Usuario miUsuario)
+	protected String usuario;
+	protected String password;
+
+	public Persona(String id, String nombre, String cedula, String direccion, String telefono, String usuario,
+			String password)
 	{
 		super();
 		this.id = id;
@@ -20,7 +22,8 @@ public class Persona implements Serializable
 		this.cedula = cedula;
 		this.direccion = direccion;
 		this.telefono = telefono;
-		this.miUsuario = miUsuario;
+		this.usuario = usuario;
+		this.password = password;
 	}
 
 	public String getId()
@@ -73,13 +76,23 @@ public class Persona implements Serializable
 		this.telefono = telefono;
 	}
 
-	public Usuario getMiUsuario()
+	public String getUsuario()
 	{
-		return miUsuario;
+		return usuario;
 	}
 
-	public void setMiUsuario(Usuario miUsuario)
+	public void setUsuario(String usuario)
 	{
-		this.miUsuario = miUsuario;
+		this.usuario = usuario;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+	public void setPassword(String password)
+	{
+		this.password = password;
 	}
 }

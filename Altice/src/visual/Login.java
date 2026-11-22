@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,82 +22,100 @@ import javax.swing.border.EmptyBorder;
 
 import logico.Administrativo;
 import logico.Altice;
-import logico.Usuario;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import java.awt.Color;
 
-public class Login extends JFrame {
-
-	
+public class Login extends JFrame
+{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtContrasena;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
 				FileInputStream empresa;
 				FileOutputStream empresa2;
 				ObjectInputStream empresaRead;
 				ObjectOutputStream empresaWrite;
-				try {
+				try
+				{
 					empresa = new FileInputStream("altice.dat");
 					empresaRead = new ObjectInputStream(empresa);
 					Altice temp = (Altice) empresaRead.readObject();
 					Altice.setAltice(temp);
 					empresa.close();
 					empresaRead.close();
-				} catch (FileNotFoundException e) {
-					try {
+				}
+				catch (FileNotFoundException e)
+				{
+					try
+					{
 						empresa2 = new FileOutputStream("altice.dat");
 						empresaWrite = new ObjectOutputStream(empresa2);
-						
-						Usuario userAdmin = new Usuario("USR-1", "Admin", "Admin", "admin@altice.do", true, new Date(),"Administrativo");
-						Administrativo admin = new Administrativo("EMP-1", "Administrador General", "000-0000000-0", 
-								"Sede Central", "809-000-0000", userAdmin, 50000f, 0f, 0f, "Sede Central", "Gerente");
-						
+
+						Administrativo admin = new Administrativo("EMP-1", "Administrador General", "000-0000000-0",
+								"Sede Central", "809-000-0000", "Admin", "Admin", 50000f, 0f, 0f, "Sede Central",
+								"Gerente");
+
 						Altice.getInstance().regPersona(admin);
 						empresaWrite.writeObject(Altice.getInstance());
 						empresa2.close();
 						empresaWrite.close();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					} catch (IOException e1) {
+					}
+					catch (FileNotFoundException e1)
+					{
 						e1.printStackTrace();
 					}
-				} catch (IOException e) {
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
+				catch (IOException e)
+				{
 					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
+				}
+				catch (ClassNotFoundException e)
+				{
 					e.printStackTrace();
 				}
 
-				try {
+				try
+				{
 					Login frame = new Login();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
 		});
 	}
 
-	/**
-	 * Create the dialog.
-	 */
-	public Login() {
-		setTitle("Altice - Inicio de Sesión");
+	public Login()
+	{
+		setTitle("Altice - Inicio de Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 420, 280);
+		setBounds(100, 100, 425, 291);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		contentPane = new JPanel();
+		contentPane.setToolTipText("Inicio de Sesi\u00F3n");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setBounds(12, 13, 392, 230);
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Inicio de Sesi\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
@@ -110,30 +127,48 @@ public class Login extends JFrame {
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
-		JLabel lblContrasena = new JLabel("Contraseña:");
+		JLabel lblContrasena = new JLabel("Contrase\u00F1a:");
 		lblContrasena.setBounds(45, 100, 105, 14);
 		panel.add(lblContrasena);
 
 		txtContrasena = new JPasswordField();
+		txtContrasena.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				iniciarSesion();
+			}
+		});
 		txtContrasena.setBounds(45, 123, 300, 25);
 		panel.add(txtContrasena);
 
-		JButton btnLogin = new JButton("Iniciar Sesión");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String user = txtUsuario.getText();
-				String pass = new String(txtContrasena.getPassword());
-
-				if (Altice.getInstance().confirmLogin(user, pass)) {
-					Principal frame = new Principal();
-					dispose();
-					frame.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error de acceso", JOptionPane.ERROR_MESSAGE);
-				}
+		JButton btnLogin = new JButton("Iniciar Sesi\u00F3n");
+		btnLogin.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				iniciarSesion();
 			}
 		});
-		btnLogin.setBounds(45, 175, 130, 30);
+		btnLogin.setBounds(127, 176, 130, 30);
 		panel.add(btnLogin);
+	}
+
+	private void iniciarSesion()
+	{
+		String user = txtUsuario.getText().trim();
+		String pass = new String(txtContrasena.getPassword());
+
+		if (Altice.getInstance().confirmLogin(user, pass))
+		{
+			Principal frame = new Principal();
+			dispose();
+			frame.setVisible(true);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Usuario o contrase\u00F1a incorrectos.", "Error de acceso",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

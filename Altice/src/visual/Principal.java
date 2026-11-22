@@ -20,7 +20,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logico.Administrativo;
 import logico.Altice;
+import logico.Cliente;
+import logico.Comercial;
+import logico.Persona;
 
 public class Principal extends JFrame
 {
@@ -131,7 +135,7 @@ public class Principal extends JFrame
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Venta de Productos");
 		mnNewMenu.add(mntmNewMenuItem_2);
 
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Generar Facturaci\u00F3n del Mes");
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Generar Factura del Mes");
 		mntmNewMenuItem_3.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -146,68 +150,71 @@ public class Principal extends JFrame
 
 		JMenu mnNewMenu_1 = new JMenu("Administraci\u00F3n");
 		menuBar.add(mnNewMenu_1);
-
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Gesti\u00F3n de Personal");
-		mnNewMenu_1.add(mntmNewMenuItem_4);
-
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Registrar Usuario");
-		mnNewMenu_1.add(mntmNewMenuItem_5);
 		
+		JMenu mnNewMenu_6 = new JMenu("Gesti\u00F3n de Personal");
+		mnNewMenu_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_1.add(mnNewMenu_6);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar Empleado");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_4);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listar Empleado");
+		mnNewMenu_6.add(mntmNewMenuItem_5);
+
 		JMenu mnNewMenu_3 = new JMenu("Gesti\u00F3n de Planes y Servicios");
-		mnNewMenu_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		mnNewMenu_1.add(mnNewMenu_3);
-		
+
 		JMenu mnNewMenu_4 = new JMenu("Planes");
-		mnNewMenu_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		mnNewMenu_3.add(mnNewMenu_4);
-		
+
 		JMenuItem mntmNewMenuItem = new JMenuItem("Registrar Plan");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+		mntmNewMenuItem.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				RegPlan regPlan = new RegPlan();
 				regPlan.setVisible(true);
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem);
-		
+
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Listar Planes");
-		mntmNewMenuItem_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+		mntmNewMenuItem_6.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				ListPlan listPlan = new ListPlan();
 				listPlan.setVisible(true);
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_6);
-		
+
 		JMenu mnNewMenu_5 = new JMenu("Servicios");
-		mnNewMenu_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		mnNewMenu_3.add(mnNewMenu_5);
-		
+
 		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Registrar Servicio");
-		mntmNewMenuItem_13.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+		mntmNewMenuItem_13.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				RegServicio regServicio = new RegServicio();
 				regServicio.setVisible(true);
 			}
 		});
 		mnNewMenu_5.add(mntmNewMenuItem_13);
-		
+
 		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Listar Servicios");
-		mntmNewMenuItem_14.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+		mntmNewMenuItem_14.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				ListServicio listServicio = new ListServicio();
 				listServicio.setVisible(true);
 			}
@@ -234,6 +241,15 @@ public class Principal extends JFrame
 
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Inventario y Planes Activos");
 		mnNewMenu_2.add(mntmNewMenuItem_12);
+
+		JMenu mnCliente = new JMenu("Cliente");
+		menuBar.add(mnCliente);
+
+		JMenuItem mntmMisContratos = new JMenuItem("Mis Contratos");
+		mnCliente.add(mntmMisContratos);
+
+		JMenuItem mntmMisFacturas = new JMenuItem("Mis Facturas");
+		mnCliente.add(mntmMisFacturas);
 
 		menuBar.add(Box.createHorizontalGlue());
 
@@ -270,11 +286,29 @@ public class Principal extends JFrame
 		});
 		mnSesion.add(mntmSalir);
 
-		if (Altice.getLoginUser() != null && Altice.getLoginUser().getMiUsuario() != null)
+		Persona logueado = Altice.getLoginUser();
+		if (logueado != null)
 		{
-			if (!Altice.getLoginUser().getMiUsuario().getTipo().equalsIgnoreCase("Administrativo"))
+			if (logueado instanceof Administrativo)
 			{
+				mnNewMenu.setEnabled(true);
+				mnNewMenu_1.setEnabled(true);
+				mnNewMenu_2.setEnabled(true);
+				mnCliente.setEnabled(true);
+			}
+			else if (logueado instanceof Comercial)
+			{
+				mnNewMenu.setEnabled(true);
 				mnNewMenu_1.setEnabled(false);
+				mnNewMenu_2.setEnabled(false);
+				mnCliente.setEnabled(false);
+			}
+			else if (logueado instanceof Cliente)
+			{
+				mnNewMenu.setEnabled(false);
+				mnNewMenu_1.setEnabled(false);
+				mnNewMenu_2.setEnabled(false);
+				mnCliente.setEnabled(true);
 			}
 		}
 
