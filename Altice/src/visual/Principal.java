@@ -11,10 +11,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -51,24 +53,7 @@ public class Principal extends JFrame
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				FileOutputStream archivo;
-				ObjectOutputStream salida;
-				try
-				{
-					archivo = new FileOutputStream("altice.dat");
-					salida = new ObjectOutputStream(archivo);
-					salida.writeObject(Altice.getInstance());
-					salida.close();
-					archivo.close();
-				}
-				catch (FileNotFoundException e1)
-				{
-					e1.printStackTrace();
-				}
-				catch (IOException e1)
-				{
-					e1.printStackTrace();
-				}
+				guardarDatos();
 			}
 		});
 		setTitle("Sistema de Gesti\u00F3n Altice");
@@ -82,7 +67,6 @@ public class Principal extends JFrame
 		JMenu mnNewMenu = new JMenu("Comercial");
 		menuBar.add(mnNewMenu);
 
-		// Gestion de Clientes ahora es un submenu con dos opciones
 		JMenu mnGestionClientes = new JMenu("Gesti\u00F3n de Clientes");
 		mnNewMenu.add(mnGestionClientes);
 
@@ -108,13 +92,56 @@ public class Principal extends JFrame
 		});
 		mnGestionClientes.add(mntmListarCliente);
 
+		JMenu mnGestionContratos = new JMenu("Gesti\u00F3n de Contrato");
+		mnNewMenu.add(mnGestionContratos);
+
+		JMenuItem mntmRegistrarContrato = new JMenuItem("Registrar Contratos");
+		mntmRegistrarContrato.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				RegContrato regContrato = new RegContrato();
+				regContrato.setVisible(true);
+			}
+		});
+		mnGestionContratos.add(mntmRegistrarContrato);
+
+		JMenuItem mntmListarContrato = new JMenuItem("Listar Contrato");
+		mntmListarContrato.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ListContrato listContrato = new ListContrato();
+				listContrato.setVisible(true);
+			}
+		});
+		mnGestionContratos.add(mntmListarContrato);
+
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Facturaci\u00F3n");
+		mntmNewMenuItem_1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Facturacion facturacion = new Facturacion();
+				facturacion.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Venta de Productos");
 		mnNewMenu.add(mntmNewMenuItem_2);
 
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Generar Facturaci\u00F3n del Mes");
+		mntmNewMenuItem_3.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				int generadas = Altice.getInstance().generarFacturacionMensual();
+				JOptionPane.showMessageDialog(null,
+						"Facturaci\u00F3n mensual generada. Facturas emitidas: " + generadas, "Facturaci\u00F3n",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_3);
 
 		JMenu mnNewMenu_1 = new JMenu("Administraci\u00F3n");
@@ -125,9 +152,67 @@ public class Principal extends JFrame
 
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Registrar Usuario");
 		mnNewMenu_1.add(mntmNewMenuItem_5);
-
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Gesti\u00F3n de Planes y Servicios");
-		mnNewMenu_1.add(mntmNewMenuItem_6);
+		
+		JMenu mnNewMenu_3 = new JMenu("Gesti\u00F3n de Planes y Servicios");
+		mnNewMenu_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_1.add(mnNewMenu_3);
+		
+		JMenu mnNewMenu_4 = new JMenu("Planes");
+		mnNewMenu_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_3.add(mnNewMenu_4);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Registrar Plan");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				RegPlan regPlan = new RegPlan();
+				regPlan.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Listar Planes");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ListPlan listPlan = new ListPlan();
+				listPlan.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_6);
+		
+		JMenu mnNewMenu_5 = new JMenu("Servicios");
+		mnNewMenu_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_3.add(mnNewMenu_5);
+		
+		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Registrar Servicio");
+		mntmNewMenuItem_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				RegServicio regServicio = new RegServicio();
+				regServicio.setVisible(true);
+			}
+		});
+		mnNewMenu_5.add(mntmNewMenuItem_13);
+		
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Listar Servicios");
+		mntmNewMenuItem_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ListServicio listServicio = new ListServicio();
+				listServicio.setVisible(true);
+			}
+		});
+		mnNewMenu_5.add(mntmNewMenuItem_14);
 
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Inventario de Productos");
 		mnNewMenu_1.add(mntmNewMenuItem_7);
@@ -150,16 +235,74 @@ public class Principal extends JFrame
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Inventario y Planes Activos");
 		mnNewMenu_2.add(mntmNewMenuItem_12);
 
+		menuBar.add(Box.createHorizontalGlue());
+
+		JMenu mnSesion = new JMenu("Sesi\u00F3n");
+		menuBar.add(mnSesion);
+
+		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+		mntmCerrarSesion.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				guardarDatos();
+				Altice.setLoginUser(null);
+				Login login = new Login();
+				dispose();
+				login.setVisible(true);
+			}
+		});
+		mnSesion.add(mntmCerrarSesion);
+
+		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				int opcion = JOptionPane.showConfirmDialog(null, "\u00BFEst\u00E1 seguro que desea salir del sistema?",
+						"Salir", JOptionPane.YES_NO_OPTION);
+				if (opcion == JOptionPane.YES_OPTION)
+				{
+					guardarDatos();
+					System.exit(0);
+				}
+			}
+		});
+		mnSesion.add(mntmSalir);
+
 		if (Altice.getLoginUser() != null && Altice.getLoginUser().getMiUsuario() != null)
 		{
-			if (!Altice.getLoginUser().getMiUsuario().getTipo().equalsIgnoreCase("Administrador"))
+			if (!Altice.getLoginUser().getMiUsuario().getTipo().equalsIgnoreCase("Administrativo"))
 			{
 				mnNewMenu_1.setEnabled(false);
 			}
 		}
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	}
+
+	private void guardarDatos()
+	{
+		FileOutputStream archivo;
+		ObjectOutputStream salida;
+		try
+		{
+			archivo = new FileOutputStream("altice.dat");
+			salida = new ObjectOutputStream(archivo);
+			salida.writeObject(Altice.getInstance());
+			salida.close();
+			archivo.close();
+		}
+		catch (FileNotFoundException e1)
+		{
+			e1.printStackTrace();
+		}
+		catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
 	}
 }

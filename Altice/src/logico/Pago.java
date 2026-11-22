@@ -17,9 +17,10 @@ public class Pago implements Serializable{
 	private float montoRecibido;
 	private float devuelta;
 	private boolean pagada;
+	private Contrato miContrato;
 	
 	public Pago(String id, Cliente miCliente, Comercial facilitador, String metodoPago,
-			ArrayList<DetalleVenta> detalles, Date fechaPago, float totalPago, float itbis, float montoRecibido, float devuelta) {
+			ArrayList<DetalleVenta> detalles, Date fechaPago, float totalPago, float itbis, float montoRecibido, float devuelta, Contrato miContrato) {
 		super();
 		this.id = id;
 		this.miCliente = miCliente;
@@ -32,6 +33,7 @@ public class Pago implements Serializable{
 		this.montoRecibido = montoRecibido;
 		this.devuelta = devuelta;
 		this.pagada = false;
+		this.miContrato = miContrato;
 	}
 
 	public String getId() {
@@ -120,6 +122,14 @@ public class Pago implements Serializable{
 
 	public void setPagada(boolean pagada) {
 		this.pagada = pagada;
+	}
+
+	public Contrato getMiContrato() {
+		return miContrato;
+	}
+
+	public void setMiContrato(Contrato miContrato) {
+		this.miContrato = miContrato;
 	}
 	
 	
