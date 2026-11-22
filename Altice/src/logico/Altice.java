@@ -2,6 +2,7 @@ package logico;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Altice implements Serializable {
 	
@@ -160,4 +161,175 @@ public class Altice implements Serializable {
 		}
 		return clientes;
 	}
+	
+	public String generarIdContrato() {
+		return "CON-" + (misContratos.size() + 1);
+	}
+
+	public String generarIdPago() {
+		return "FAC-" + (misPagos.size() + 1);
+	}
+
+	public ArrayList<Plan> obtenerPlanesActivos() {
+		ArrayList<Plan> activos = new ArrayList<>();
+		for (int i = 0; i < misPlanes.size(); i++) {
+			Plan p = misPlanes.get(i);
+			if (p.isEstado()) {
+				activos.add(p);
+			}
+		}
+		return activos;
+	}
+
+	public Contrato crearContrato(Cliente cliente, Comercial facilitador, Plan plan, String metodoPago) {
+		if (cliente.getDeuda() > 0 || cliente.getFacturaPendientes() > 0) {
+			return null;
+		}
+
+		Date hoy = new Date();
+		Contrato nuevo = new Contrato(generarIdContrato(), cliente, facilitador, metodoPago, plan, hoy, hoy, true);
+		misContratos.add(nuevo);
+		cliente.getMisContratos().add(nuevo);
+		cliente.setActivo(true);
+
+		float subtotal = plan.getPrecioMensual();
+		float itbis = subtotal * 0.18f;
+		float total = subtotal + itbis;
+
+		Pago facturaInicial = new Pago(generarIdPago(), cliente, facilitador, metodoPago,
+				new ArrayList<DetalleVenta>(), hoy, total, itbis, 0.0f, 0.0f, nuevo);
+		facturaInicial.setPagada(false);
+
+		misPagos.add(facturaInicial);
+		cliente.getMisPagos().add(facturaInicial);
+		cliente.setDeuda(cliente.getDeuda() + total);
+		cliente.setFacturaPendientes(cliente.getFacturaPendientes() + 1);
+
+		return nuevo;
+	}
+
+	public int generarFacturacionMensual() {
+		int facturasGeneradas = 0;
+		Date hoy = new Date();
+
+		for (int i = 0; i < misContratos.size(); i++) {
+			Contrato c = misContratos.get(i);
+			if (c.isActivo()) {
+				Cliente cli = c.getMiCliente();
+				float subtotal = c.getMiPlan().getPrecioMensual();
+				float itbis = subtotal * 0.18f;
+				float total = subtotal + itbis;
+
+				Pago facturaMes = new Pago(generarIdPago(), cli, c.getFacilitador(), c.getMetodoPago(),
+						new ArrayList<DetalleVenta>(), hoy, total, itbis, 0.0f, 0.0f, c);
+				facturaMes.setPagada(false);
+
+				misPagos.add(facturaMes);
+				cli.getMisPagos().add(facturaMes);
+
+				cli.setDeuda(cli.getDeuda() + total);
+				cli.setFacturaPendientes(cli.getFacturaPendientes() + 1);
+				facturasGeneradas++;
+
+				if (cli.getFacturaPendientes() > 2) {
+					cli.setActivo(false);
+					for (int j = 0; j < cli.getMisContratos().size(); j++) {
+						cli.getMisContratos().get(j).setActivo(false);
+					}
+				}
+			}
+		}
+		return facturasGeneradas;
+	}
+
+	public ArrayList<Pago> obtenerFacturasPendientesCliente(Cliente cliente) {
+		ArrayList<Pago> pendientes = new ArrayList<>();
+		for (int i = 0; i < cliente.getMisPagos().size(); i++) {
+			Pago p = cliente.getMisPagos().get(i);
+			if (!p.isPagada()) {
+				pendientes.add(p);
+			}
+		}
+		return pendientes;
+	}
+
+	public float procesarCobroFacturas(Cliente cliente, Comercial facilitador, ArrayList<Pago> aPagar,
+			String metodoPago, float montoRecibido) {
+		float totalCobrado = 0.0f;
+		for (int i = 0; i < aPagar.size(); i++) {
+			totalCobrado += aPagar.get(i).getTotalPago();
+		}
+
+		if (montoRecibido < totalCobrado) {
+			return -1.0f;
+		}
+
+		float devuelta = montoRecibido - totalCobrado;
+		Date hoy = new Date();
+
+		for (int i = 0; i < aPagar.size(); i++) {
+			Pago p = aPagar.get(i);
+			p.setPagada(true);
+			p.setFechaPago(hoy);
+			p.setMetodoPago(metodoPago);
+			if (facilitador != null) {
+				p.setFacilitador(facilitador);
+			}
+			p.setMontoRecibido(montoRecibido);
+			p.setDevuelta(devuelta);
+		}
+
+		float nuevaDeuda = cliente.getDeuda() - totalCobrado;
+		if (nuevaDeuda < 0.01f) {
+			nuevaDeuda = 0.0f;
+		}
+		cliente.setDeuda(nuevaDeuda);
+
+		int nuevasPendientes = cliente.getFacturaPendientes() - aPagar.size();
+		if (nuevasPendientes < 0) {
+			nuevasPendientes = 0;
+		}
+		cliente.setFacturaPendientes(nuevasPendientes);
+
+		if (cliente.getFacturaPendientes() <= 2) {
+			cliente.setActivo(true);
+			for (int i = 0; i < cliente.getMisContratos().size(); i++) {
+				Contrato c = cliente.getMisContratos().get(i);
+				c.setActivo(true);
+				c.setFechaUltimoPago(hoy);
+			}
+		}
+
+		if (facilitador != null) {
+			facilitador.setComisionmensual(facilitador.getComisionmensual() + (totalCobrado * 0.05f));
+			facilitador.setComisiontotal(facilitador.getComisiontotal() + (totalCobrado * 0.05f));
+		}
+
+		return devuelta;
+	}
+	
+	
+	public String generarIdServicio()
+	{
+		return "SRV-" + (misServicios.size() + 1);
+	}
+
+	public String generarIdPlan()
+	{
+		return "PLN-" + (misPlanes.size() + 1);
+	}
+
+	public void registrarServicio(Servicio s)
+	{
+		misServicios.add(s);
+	}
+
+	public void registrarPlan(Plan p)
+	{
+		misPlanes.add(p);
+	}
 }
+
+
+	
+
