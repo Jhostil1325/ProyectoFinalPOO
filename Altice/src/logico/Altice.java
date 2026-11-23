@@ -502,4 +502,82 @@ public class Altice implements Serializable
 		}
 		return "Persona";
 	}
+	
+	public boolean esAdminBase(Persona persona)
+	{
+		return persona.getUsuario() != null && persona.getUsuario().equalsIgnoreCase("Admin");
+	}
+
+	private boolean cedulaUsadaPorOtro(Persona actual, String cedula)
+	{
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p != actual && p.getCedula() != null && p.getCedula().equalsIgnoreCase(cedula.trim()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean modificarCliente(Cliente cliente, String nombre, String cedula, String direccion,
+			String telefono)
+	{
+		if (cedulaUsadaPorOtro(cliente, cedula))
+		{
+			return false;
+		}
+		cliente.setNombre(nombre);
+		cliente.setCedula(cedula.trim());
+		cliente.setDireccion(direccion);
+		cliente.setTelefono(telefono);
+		return true;
+	}
+
+	public boolean modificarEmpleado(Empleado empleado, String nombre, String cedula, String direccion,
+			String telefono, float sueldoBase, String local)
+	{
+		if (cedulaUsadaPorOtro(empleado, cedula))
+		{
+			return false;
+		}
+		empleado.setNombre(nombre);
+		empleado.setCedula(cedula.trim());
+		empleado.setDireccion(direccion);
+		empleado.setTelefono(telefono);
+		empleado.setSueldobase(sueldoBase);
+		empleado.setMiLocal(local);
+		return true;
+	}
+
+	public boolean modificarUsuario(Persona persona, String usuario, String password)
+	{
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p != persona && p.getUsuario() != null && p.getUsuario().equalsIgnoreCase(usuario.trim()))
+			{
+				return false;
+			}
+		}
+		persona.setUsuario(usuario.trim());
+		if (password != null && !password.isEmpty())
+		{
+			persona.setPassword(password);
+		}
+		return true;
+	}
+
+	public void modificarPlan(Plan plan, float precioMensual)
+	{
+		plan.setPrecioMensual(precioMensual);
+	}
+
+	public void modificarContrato(Contrato contrato, Plan plan, String metodoPago, boolean activo)
+	{
+		contrato.setMiPlan(plan);
+		contrato.setMetodoPago(metodoPago);
+		contrato.setActivo(activo);
+	}
 }

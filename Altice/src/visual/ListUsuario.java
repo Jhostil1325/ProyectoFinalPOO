@@ -2,14 +2,19 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -51,6 +56,17 @@ public class ListUsuario extends JDialog
 
 		JPanel panelBotones = new JPanel();
 		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				modificarUsuario();
+			}
+		});
+		panelBotones.add(btnModificar);
+
 		JButton btnCerrar = new JButton("Cerrar");
 		btnCerrar.addActionListener(new ActionListener()
 		{
@@ -77,6 +93,81 @@ public class ListUsuario extends JDialog
 			fila[2] = p.getCedula();
 			fila[3] = Altice.getInstance().obtenerTipoPersona(p);
 			model.addRow(fila);
+		}
+	}
+
+	private void modificarUsuario()
+	{
+		int row = table.getSelectedRow();
+		if (row < 0)
+		{
+			JOptionPane.showMessageDialog(this, "Seleccione un usuario de la tabla.", "Aviso",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		Persona p = Altice.getInstance().getPersonasConUsuario().get(row);
+
+		JTextField txtUsuario = new JTextField(p.getUsuario());
+		if (Altice.getInstance().esAdminBase(p))
+		{
+			txtUsuario.setEnabled(false);
+		}
+		JPasswordField txtPassword = new JPasswordField();
+		JPasswordField txtConfirmar = new JPasswordField();
+
+		JPanel panel = new JPanel(new GridLayout(0, 2, 8, 8));
+		panel.add(new JLabel("Nombre:"));
+		panel.add(new JLabel(p.getNombre()));
+		panel.add(new JLabel("Tipo:"));
+		panel.add(new JLabel(Altice.getInstance().obtenerTipoPersona(p)));
+		panel.add(new JLabel("Usuario:"));
+		panel.add(txtUsuario);
+		panel.add(new JLabel("Nueva contrase\u00F1a:"));
+		panel.add(txtPassword);
+		panel.add(new JLabel("Confirmar contrase\u00F1a:"));
+		panel.add(txtConfirmar);
+		panel.add(new JLabel(""));
+		panel.add(new JLabel("(vac\u00EDo = no cambiar)"));
+
+		while (true)
+		{
+			int opcion = JOptionPane.showConfirmDialog(this, panel, "Modificar Usuario",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if (opcion != JOptionPane.OK_OPTION)
+			{
+				return;
+			}
+
+			String usuario = txtUsuario.getText().trim();
+			String password = new String(txtPassword.getPassword());
+			String confirmar = new String(txtConfirmar.getPassword());
+
+			if (usuario.isEmpty())
+			{
+				JOptionPane.showMessageDialog(this, "El usuario no puede estar vac\u00EDo.", "Campos vac\u00EDos",
+						JOptionPane.WARNING_MESSAGE);
+				continue;
+			}
+
+			if (!password.equals(confirmar))
+			{
+				JOptionPane.showMessageDialog(this, "Las contrase\u00F1as no coinciden.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
+
+			if (!Altice.getInstance().modificarUsuario(p, usuario, password))
+			{
+				JOptionPane.showMessageDialog(this, "Ese nombre de usuario ya est\u00E1 en uso.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
+
+			JOptionPane.showMessageDialog(this, "Usuario modificado con \u00E9xito.", "Modificar",
+					JOptionPane.INFORMATION_MESSAGE);
+			cargarUsuarios();
+			return;
 		}
 	}
 }

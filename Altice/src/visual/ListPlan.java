@@ -2,15 +2,18 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,6 +59,16 @@ public class ListPlan extends JDialog
 
 		JPanel panelBotones = new JPanel();
 		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				modificarPlan();
+			}
+		});
+		panelBotones.add(btnModificar);
 
 		JButton btnActivar = new JButton("Activar");
 		btnActivar.addActionListener(new ActionListener()
@@ -158,5 +171,60 @@ public class ListPlan extends JDialog
 
 		p.setEstado(nuevoEstado);
 		cargarPlanes();
+	}
+
+	private void modificarPlan()
+	{
+		int row = table.getSelectedRow();
+		if (row < 0)
+		{
+			JOptionPane.showMessageDialog(this, "Seleccione un plan de la tabla.", "Aviso",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		Plan p = Altice.getInstance().getMisPlanes().get(row);
+		JTextField txtPrecio = new JTextField(String.format("%.2f", p.getPrecioMensual()));
+
+		JPanel panel = new JPanel(new GridLayout(0, 2, 8, 8));
+		panel.add(new JLabel("ID Plan:"));
+		panel.add(new JLabel(p.getId()));
+		panel.add(new JLabel("Precio mensual (RD$):"));
+		panel.add(txtPrecio);
+
+		while (true)
+		{
+			int opcion = JOptionPane.showConfirmDialog(this, panel, "Modificar Plan",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if (opcion != JOptionPane.OK_OPTION)
+			{
+				return;
+			}
+
+			float precio = 0.0f;
+			try
+			{
+				precio = Float.parseFloat(txtPrecio.getText().trim().replace(",", "."));
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Ingrese un precio mensual v\u00E1lido.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
+
+			if (precio <= 0)
+			{
+				JOptionPane.showMessageDialog(this, "El precio mensual debe ser mayor a cero.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
+
+			Altice.getInstance().modificarPlan(p, precio);
+			JOptionPane.showMessageDialog(this, "Plan modificado con \u00E9xito.", "Modificar",
+					JOptionPane.INFORMATION_MESSAGE);
+			cargarPlanes();
+			return;
+		}
 	}
 }
