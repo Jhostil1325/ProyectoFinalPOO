@@ -85,7 +85,7 @@ public class Principal extends JFrame
 		});
 		mnGestionClientes.add(mntmRegistrarCliente);
 
-		JMenuItem mntmListarCliente = new JMenuItem("Listar Cliente");
+		JMenuItem mntmListarCliente = new JMenuItem("Listar Clientes");
 		mntmListarCliente.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -161,12 +161,47 @@ public class Principal extends JFrame
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar Empleado");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RegEmpleado regEmpleado = new RegEmpleado();
+				regEmpleado.setVisible(true);
 			}
 		});
 		mnNewMenu_6.add(mntmNewMenuItem_4);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listar Empleado");
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listar Empleados");
+		mntmNewMenuItem_5.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ListEmpleado listEmpleado = new ListEmpleado();
+				listEmpleado.setVisible(true);
+			}
+		});
 		mnNewMenu_6.add(mntmNewMenuItem_5);
+
+		JMenu mnGestionUsuarios = new JMenu("Gesti\u00F3n de Usuarios");
+		mnNewMenu_1.add(mnGestionUsuarios);
+
+		JMenuItem mntmCrearUsuario = new JMenuItem("Crear Usuario");
+		mntmCrearUsuario.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				RegUsuario regUsuario = new RegUsuario();
+				regUsuario.setVisible(true);
+			}
+		});
+		mnGestionUsuarios.add(mntmCrearUsuario);
+
+		JMenuItem mntmListarUsuario = new JMenuItem("Listar Usuarios");
+		mntmListarUsuario.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ListUsuario listUsuario = new ListUsuario();
+				listUsuario.setVisible(true);
+			}
+		});
+		mnGestionUsuarios.add(mntmListarUsuario);
 
 		JMenu mnNewMenu_3 = new JMenu("Gesti\u00F3n de Planes y Servicios");
 		mnNewMenu_1.add(mnNewMenu_3);

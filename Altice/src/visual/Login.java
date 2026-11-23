@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import logico.Administrativo;
 import logico.Altice;
+import logico.Persona;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -84,6 +85,22 @@ public class Login extends JFrame
 				catch (ClassNotFoundException e)
 				{
 					e.printStackTrace();
+				}
+
+				if (!Altice.getInstance().existeUsuario("Admin"))
+				{
+					Persona existente = Altice.getInstance().buscarPersonaCed("000-0000000-0");
+					if (existente != null)
+					{
+						Altice.getInstance().asignarUsuario(existente, "Admin", "Admin");
+					}
+					else
+					{
+						Administrativo admin = new Administrativo(Altice.getInstance().generarIdEmpleado(),
+								"Administrador General", "000-0000000-0", "Sede Central", "809-000-0000", "Admin",
+								"Admin", 50000f, 0f, 0f, "Sede Central", "Gerente");
+						Altice.getInstance().regPersona(admin);
+					}
 				}
 
 				try

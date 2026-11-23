@@ -2,11 +2,13 @@ package logico;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Altice implements Serializable
 {
 	private static final long serialVersionUID = 1L;
+	private static final float PORCENTAJE_COMISION = 0.05f;
 	private static Altice altice = null;
 	private static Persona loginuser = null;
 	private ArrayList<Persona> misPersonas;
@@ -75,6 +77,10 @@ public class Altice implements Serializable
 
 	public boolean existeUsuario(String username)
 	{
+		if (username == null || username.trim().isEmpty())
+		{
+			return false;
+		}
 		for (int i = 0; i < misPersonas.size(); i++)
 		{
 			Persona p = misPersonas.get(i);
@@ -394,11 +400,32 @@ public class Altice implements Serializable
 
 		if (facilitador != null)
 		{
-			facilitador.setComisionmensual(facilitador.getComisionmensual() + (totalCobrado * 0.05f));
-			facilitador.setComisiontotal(facilitador.getComisiontotal() + (totalCobrado * 0.05f));
+			facilitador.setComisionmensual(calcularComisionMensual(facilitador));
+			facilitador.setComisiontotal(facilitador.getComisiontotal() + (totalCobrado * PORCENTAJE_COMISION));
 		}
 
 		return devuelta;
+	}
+
+	public float calcularComisionMensual(Comercial comercial)
+	{
+		Calendar hoy = Calendar.getInstance();
+		Calendar fecha = Calendar.getInstance();
+		float total = 0.0f;
+		for (int i = 0; i < misPagos.size(); i++)
+		{
+			Pago p = misPagos.get(i);
+			if (p.isPagada() && p.getFacilitador() == comercial && p.getFechaPago() != null)
+			{
+				fecha.setTime(p.getFechaPago());
+				if (fecha.get(Calendar.MONTH) == hoy.get(Calendar.MONTH)
+						&& fecha.get(Calendar.YEAR) == hoy.get(Calendar.YEAR))
+				{
+					total += p.getTotalPago() * PORCENTAJE_COMISION;
+				}
+			}
+		}
+		return total;
 	}
 
 	public String generarIdServicio()
@@ -419,5 +446,60 @@ public class Altice implements Serializable
 	public void registrarPlan(Plan p)
 	{
 		misPlanes.add(p);
+	}
+
+	public Persona buscarPersonaCed(String cedula)
+	{
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p.getCedula() != null && p.getCedula().equalsIgnoreCase(cedula.trim()))
+			{
+				return p;
+			}
+		}
+		return null;
+	}
+
+	public boolean asignarUsuario(Persona persona, String usuario, String password)
+	{
+		if (existeUsuario(usuario))
+		{
+			return false;
+		}
+		persona.setUsuario(usuario.trim());
+		persona.setPassword(password);
+		return true;
+	}
+
+	public ArrayList<Persona> getPersonasConUsuario()
+	{
+		ArrayList<Persona> conUsuario = new ArrayList<>();
+		for (int i = 0; i < misPersonas.size(); i++)
+		{
+			Persona p = misPersonas.get(i);
+			if (p.getUsuario() != null && !p.getUsuario().trim().isEmpty())
+			{
+				conUsuario.add(p);
+			}
+		}
+		return conUsuario;
+	}
+
+	public String obtenerTipoPersona(Persona p)
+	{
+		if (p instanceof Cliente)
+		{
+			return "Cliente";
+		}
+		if (p instanceof Comercial)
+		{
+			return "Comercial";
+		}
+		if (p instanceof Administrativo)
+		{
+			return "Administrativo";
+		}
+		return "Persona";
 	}
 }
