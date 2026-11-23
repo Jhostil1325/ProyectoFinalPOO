@@ -263,18 +263,48 @@ public class Principal extends JFrame
 		menuBar.add(mnNewMenu_2);
 
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Ventas y Facturaci\u00F3n por Per\u00EDodo");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ReporteVentasPeriodo rep = new ReporteVentasPeriodo();
+				rep.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_8);
 
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Ventas y Contratos por Local");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReporteVentasLocal rep = new ReporteVentasLocal();
+				rep.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_9);
 
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Clientes con Deuda");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReporteClientesDeuda rep = new ReporteClientesDeuda();
+				rep.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_10);
 
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Empleados y Comisiones");
+		mntmNewMenuItem_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReporteEmpleadosComisiones rep = new ReporteEmpleadosComisiones();
+				rep.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_11);
 
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Inventario y Planes Activos");
+		mntmNewMenuItem_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReporteInventarioPlanes rep = new ReporteInventarioPlanes();
+				rep.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_12);
 
 		JMenu mnCliente = new JMenu("Cliente");

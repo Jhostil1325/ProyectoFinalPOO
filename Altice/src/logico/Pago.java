@@ -26,7 +26,7 @@ public class Pago implements Serializable{
 		this.miCliente = miCliente;
 		this.facilitador = facilitador;
 		this.metodoPago = metodoPago;
-		this.detalles = new ArrayList<>();
+		this.detalles = (detalles != null) ? detalles : new ArrayList<>();
 		this.fechaPago = fechaPago;
 		this.totalPago = totalPago;
 		this.itbis = itbis;
