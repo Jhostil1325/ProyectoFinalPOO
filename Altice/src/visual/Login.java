@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 import logico.Administrativo;
 import logico.Altice;
 import logico.Persona;
+import logico.Producto;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -50,6 +52,7 @@ public class Login extends JFrame
 					empresaRead = new ObjectInputStream(empresa);
 					Altice temp = (Altice) empresaRead.readObject();
 					Altice.setAltice(temp);
+					Producto.setCont(Altice.getInstance().getMisProductos().size());
 					empresa.close();
 					empresaRead.close();
 				}

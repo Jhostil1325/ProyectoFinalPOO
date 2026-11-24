@@ -12,12 +12,14 @@ public class Producto implements Serializable{
 	private boolean disponible;
 	private boolean estado;
 	private float precio;
+	private static int cont =1;
 	
 	
 	public Producto(String id, String descripcion, String marca, String tipoProducto, int stock, boolean disponible,
 			boolean estado, float precio) {
 		super();
-		this.id = id;
+		this.id = "PRD-"+cont;
+		cont++;
 		this.descripcion = descripcion;
 		this.marca = marca;
 		this.tipoProducto = tipoProducto;
@@ -105,5 +107,20 @@ public class Producto implements Serializable{
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+
+	public static int getCont() {
+		return cont;
+	}
+
+
+	public static void setCont(int cont) {
+		Producto.cont = cont;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

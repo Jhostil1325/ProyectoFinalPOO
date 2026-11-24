@@ -1,7 +1,9 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -13,6 +15,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -311,9 +314,21 @@ public class Principal extends JFrame
 		menuBar.add(mnCliente);
 
 		JMenuItem mntmMisContratos = new JMenuItem("Mis Contratos");
+		mntmMisContratos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MisContratos mc = new MisContratos();
+				mc.setVisible(true);
+			}
+		});
 		mnCliente.add(mntmMisContratos);
 
 		JMenuItem mntmMisFacturas = new JMenuItem("Mis Facturas");
+		mntmMisFacturas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MisFacturas mf = new MisFacturas();
+				mf.setVisible(true);
+			}
+		});
 		mnCliente.add(mntmMisFacturas);
 
 		menuBar.add(Box.createHorizontalGlue());
@@ -378,9 +393,35 @@ public class Principal extends JFrame
 		}
 
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(18, 18, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+
+		JPanel panelCentro = new JPanel();
+		panelCentro.setBackground(new Color(18, 18, 18));
+		panelCentro.setLayout(null);
+		contentPane.add(panelCentro, BorderLayout.CENTER);
+
+		JLabel lblLogo = new JLabel("altice");
+		lblLogo.setForeground(new Color(0, 168, 232));
+		lblLogo.setFont(new Font("Tahoma", Font.BOLD, 64));
+		lblLogo.setBounds(520, 210, 250, 75);
+		panelCentro.add(lblLogo);
+
+		JLabel lblSub = new JLabel("SISTEMA INTEGRAL DE GESTI\u00D3N COMERCIAL Y TELECOMUNICACIONES");
+		lblSub.setForeground(Color.WHITE);
+		lblSub.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblSub.setBounds(345, 295, 620, 25);
+		panelCentro.add(lblSub);
+
+		String nombreLog = (logueado != null) ? logueado.getNombre() : "Administrador";
+		String rolLog = (logueado != null) ? Altice.getInstance().obtenerTipoPersona(logueado) : "Admin";
+		JLabel lblBienvenida = new JLabel("Sesi\u00F3n activa: " + nombreLog + "  |  Rol: " + rolLog);
+		lblBienvenida.setForeground(new Color(180, 180, 180));
+		lblBienvenida.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblBienvenida.setBounds(440, 335, 450, 25);
+		panelCentro.add(lblBienvenida);
 	}
 
 	private void guardarDatos()
