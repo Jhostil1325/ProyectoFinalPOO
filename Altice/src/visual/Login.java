@@ -28,6 +28,9 @@ import logico.Producto;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.border.LineBorder;
 
 public class Login extends JFrame
 {
@@ -123,32 +126,40 @@ public class Login extends JFrame
 	{
 		setTitle("Altice - Inicio de Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 425, 291);
+		setBounds(100, 100, 425, 484);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(18, 18, 18));
+		contentPane.setForeground(Color.DARK_GRAY);
 		contentPane.setToolTipText("Inicio de Sesi\u00F3n");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 13, 392, 230);
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Inicio de Sesi\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBackground(new Color(18, 18, 18));
+		panel.setBounds(12, 218, 392, 218);
+		panel.setBorder(new LineBorder(new Color(18, 18, 18)));
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(45, 35, 100, 14);
+		lblUsuario.setForeground(new Color(255, 255, 255));
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblUsuario.setBounds(153, 13, 100, 25);
 		panel.add(lblUsuario);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(45, 58, 300, 25);
+		txtUsuario.setForeground(new Color(0, 0, 255));
+		txtUsuario.setBounds(45, 48, 300, 25);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a:");
-		lblContrasena.setBounds(45, 100, 105, 14);
+		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblContrasena.setForeground(new Color(255, 255, 255));
+		lblContrasena.setBounds(133, 86, 130, 25);
 		panel.add(lblContrasena);
 
 		txtContrasena = new JPasswordField();
@@ -159,19 +170,27 @@ public class Login extends JFrame
 				iniciarSesion();
 			}
 		});
-		txtContrasena.setBounds(45, 123, 300, 25);
+		txtContrasena.setBounds(45, 117, 300, 25);
 		panel.add(txtContrasena);
 
-		JButton btnLogin = new JButton("Iniciar Sesi\u00F3n");
+		JButton btnLogin = new JButton("Iniciar Sesi\u00F3n");                      
+		btnLogin.setBackground(new Color(255, 255, 255));  
+		btnLogin.setForeground(new Color(0, 168, 232));             
+		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnLogin.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				iniciarSesion();
-			}
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        iniciarSesion();
+		    }
 		});
-		btnLogin.setBounds(127, 176, 130, 30);
+		btnLogin.setBounds(122, 166, 154, 39);
 		panel.add(btnLogin);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(44, 13, 325, 208);
+		contentPane.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\esthe\\OneDrive - Pontificia Universidad Cat\u00F3lica Madre y Maestra\\Desktop\\Altice logo.png"));
 	}
 
 	private void iniciarSesion()

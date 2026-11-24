@@ -22,6 +22,7 @@ import logico.Internet;
 import logico.Servicio;
 import logico.Telefonia;
 import logico.Television;
+import java.awt.Font;
 
 public class RegServicio extends JDialog
 {
@@ -38,29 +39,33 @@ public class RegServicio extends JDialog
 	private JComboBox<String> cbxCalidad;
 	private JSpinner spnMinutos;
 	private JCheckBox chckbxIlimitadas;
+	private JPanel panel_1;
+	private JLabel lblNewLabel;
 
 	public RegServicio()
 	{
 		setTitle("Registrar Servicio");
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 420, 385);
+		setBounds(100, 100, 408, 446);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 52, 393, 357);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(null);
-		getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(panel);
 
 		JLabel lblId = new JLabel("ID Servicio:");
 		lblId.setBounds(40, 20, 100, 14);
 		panel.add(lblId);
 
 		txtId = new JTextField();
+		txtId.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtId.setEditable(false);
-		txtId.setForeground(Color.BLACK);
+		txtId.setForeground(new Color(0, 168, 232));
 		txtId.setText(Altice.getInstance().generarIdServicio());
 		txtId.setBounds(40, 40, 320, 25);
 		panel.add(txtId);
@@ -166,6 +171,7 @@ public class RegServicio extends JDialog
 		panelTelefonia.add(chckbxIlimitadas);
 
 		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnRegistrar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -177,6 +183,7 @@ public class RegServicio extends JDialog
 		panel.add(btnRegistrar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCancelar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -186,6 +193,18 @@ public class RegServicio extends JDialog
 		});
 		btnCancelar.setBounds(210, 305, 100, 28);
 		panel.add(btnCancelar);
+		
+		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(18, 18, 18));
+		panel_1.setBounds(0, 0, 402, 53);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblNewLabel = new JLabel("ALTICE | REGISTRAR SERVICIO");
+		lblNewLabel.setForeground(new Color(0, 168, 232));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 0, 390, 53);
+		panel_1.add(lblNewLabel);
 	}
 
 	private void cambiarPanelTipo()

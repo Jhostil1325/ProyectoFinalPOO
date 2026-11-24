@@ -15,6 +15,8 @@ import javax.swing.border.EmptyBorder;
 
 import logico.Altice;
 import logico.Persona;
+import java.awt.Font;
+import java.awt.Color;
 
 public class RegUsuario extends JDialog
 {
@@ -33,15 +35,16 @@ public class RegUsuario extends JDialog
 		setTitle("Crear Usuario");
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 420, 460);
+		setBounds(100, 100, 420, 499);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 51, 414, 412);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(null);
-		getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(panel);
 
 		JLabel lblCedula = new JLabel("C\u00E9dula:");
 		lblCedula.setBounds(30, 20, 180, 14);
@@ -52,6 +55,7 @@ public class RegUsuario extends JDialog
 		panel.add(txtCedula);
 
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBuscar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -105,6 +109,8 @@ public class RegUsuario extends JDialog
 		panel.add(txtConfirmar);
 
 		btnCrear = new JButton("Crear");
+		btnCrear.setForeground(new Color(0, 168, 232));
+		btnCrear.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCrear.setEnabled(false);
 		btnCrear.addActionListener(new ActionListener()
 		{
@@ -117,6 +123,7 @@ public class RegUsuario extends JDialog
 		panel.add(btnCrear);
 
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCerrar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -126,6 +133,18 @@ public class RegUsuario extends JDialog
 		});
 		btnCerrar.setBounds(210, 375, 100, 28);
 		panel.add(btnCerrar);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(18, 18, 18));
+		panel_1.setBounds(0, 0, 414, 51);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("ALTICE | REGISTRAR USUARIO");
+		lblNewLabel.setForeground(new Color(0, 168, 232));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 0, 390, 51);
+		panel_1.add(lblNewLabel);
 	}
 
 	private void buscarPersona()

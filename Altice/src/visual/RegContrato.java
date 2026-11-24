@@ -21,6 +21,7 @@ import logico.Comercial;
 import logico.Contrato;
 import logico.Plan;
 import javax.swing.border.TitledBorder;
+import java.awt.Font;
 
 public class RegContrato extends JDialog
 {
@@ -41,13 +42,13 @@ public class RegContrato extends JDialog
 		setTitle("Registrar Contrato");
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 428, 429);
+		setBounds(100, 100, 428, 458);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 13, 391, 368);
+		panel.setBounds(0, 49, 422, 377);
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setLayout(null);
 		getContentPane().add(panel);
@@ -57,8 +58,9 @@ public class RegContrato extends JDialog
 		panel.add(lblId);
 
 		txtId = new JTextField();
+		txtId.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		txtId.setEditable(false);
-		txtId.setForeground(Color.BLACK);
+		txtId.setForeground(new Color(0, 168, 232));
 		txtId.setText(Altice.getInstance().generarIdContrato());
 		txtId.setBounds(30, 40, 340, 25);
 		panel.add(txtId);
@@ -97,6 +99,7 @@ public class RegContrato extends JDialog
 		panel.add(lblDeuda);
 
 		txtDeuda = new JTextField();
+		txtDeuda.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtDeuda.setEditable(false);
 		txtDeuda.setForeground(Color.BLACK);
 		txtDeuda.setBounds(260, 152, 110, 25);
@@ -133,12 +136,14 @@ public class RegContrato extends JDialog
 		panel.add(lblTotal);
 
 		txtTotal = new JTextField();
+		txtTotal.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtTotal.setEditable(false);
 		txtTotal.setForeground(Color.BLACK);
 		txtTotal.setBounds(204, 284, 166, 25);
 		panel.add(txtTotal);
 
 		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnRegistrar.setEnabled(false);
 		btnRegistrar.addActionListener(new ActionListener()
 		{
@@ -151,6 +156,7 @@ public class RegContrato extends JDialog
 		panel.add(btnRegistrar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCancelar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -160,6 +166,18 @@ public class RegContrato extends JDialog
 		});
 		btnCancelar.setBounds(207, 332, 100, 28);
 		panel.add(btnCancelar);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(18, 18, 18));
+		panel_1.setBounds(0, 0, 422, 49);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("ALTICE | REGISTRAR CONTRATO");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setForeground(new Color(0, 168, 232));
+		lblNewLabel.setBounds(12, 0, 398, 51);
+		panel_1.add(lblNewLabel);
 
 		cargarPlanes();
 	}

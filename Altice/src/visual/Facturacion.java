@@ -165,6 +165,13 @@ public class Facturacion extends JDialog
 		cbxMetodoPago.addItem("Efectivo");
 		cbxMetodoPago.addItem("Tarjeta");
 		cbxMetodoPago.addItem("Transferencia");
+		cbxMetodoPago.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				actualizarEstadoMetodoPago();
+			}
+		});
 		cbxMetodoPago.setBounds(25, 375, 140, 25);
 		panel.add(cbxMetodoPago);
 
@@ -346,23 +353,32 @@ public class Facturacion extends JDialog
 			return;
 		}
 
+		String metodo = cbxMetodoPago.getSelectedItem().toString();
 		float montoRecibido = 0.0f;
-		try
-		{
-			montoRecibido = Float.parseFloat(txtMontoRecibido.getText().trim());
-		}
-		catch (NumberFormatException ex)
-		{
-			JOptionPane.showMessageDialog(this, "Ingrese un monto recibido v\u00E1lido.", "Error",
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
 
-		if (montoRecibido < totalCalculado)
+		if (metodo.equals("Efectivo"))
 		{
-			JOptionPane.showMessageDialog(this, "El monto recibido es menor al total a pagar.", "Pago insuficiente",
-					JOptionPane.WARNING_MESSAGE);
-			return;
+			try
+			{
+				montoRecibido = Float.parseFloat(txtMontoRecibido.getText().trim());
+			}
+			catch (NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(this, "Ingrese un monto recibido v\u00E1lido.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (montoRecibido < totalCalculado)
+			{
+				JOptionPane.showMessageDialog(this, "El monto recibido es menor al total a pagar.", "Pago insuficiente",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+		}
+		else
+		{
+			montoRecibido = totalCalculado;
 		}
 
 		ArrayList<Pago> aPagar = new ArrayList<>();
@@ -378,7 +394,6 @@ public class Facturacion extends JDialog
 			}
 		}
 
-		String metodo = cbxMetodoPago.getSelectedItem().toString();
 		Comercial facilitador = null;
 		if (Altice.getLoginUser() instanceof Comercial)
 		{
@@ -395,6 +410,15 @@ public class Facturacion extends JDialog
 					JOptionPane.INFORMATION_MESSAGE);
 			cargarDatosCliente();
 		}
+	}
+	
+	private void actualizarEstadoMetodoPago()
+	{
+		boolean esEfectivo = cbxMetodoPago.getSelectedItem().toString().equals("Efectivo");
+		txtMontoRecibido.setEnabled(esEfectivo);
+		txtMontoRecibido.setEditable(esEfectivo);
+		txtMontoRecibido.setText("");
+		txtDevuelta.setText(esEfectivo ? "" : "RD$ 0.00");
 	}
 
 	private void limpiarCamposCliente()

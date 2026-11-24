@@ -72,6 +72,7 @@ public class Principal extends JFrame
 		setJMenuBar(menuBar);
 
 		JMenu mnNewMenu = new JMenu("Comercial");
+		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu);
 
 		JMenu mnGestionClientes = new JMenu("Gesti\u00F3n de Clientes");
@@ -152,6 +153,7 @@ public class Principal extends JFrame
 		mnNewMenu.add(mntmNewMenuItem_3);
 
 		JMenu mnNewMenu_1 = new JMenu("Administraci\u00F3n");
+		mnNewMenu_1.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu_1);
 		
 		JMenu mnNewMenu_6 = new JMenu("Gesti\u00F3n de Personal");
@@ -263,6 +265,7 @@ public class Principal extends JFrame
 		mnNewMenu_1.add(mntmNewMenuItem_7);
 
 		JMenu mnNewMenu_2 = new JMenu("Reportes");
+		mnNewMenu_2.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu_2);
 
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Ventas y Facturaci\u00F3n por Per\u00EDodo");
@@ -311,6 +314,7 @@ public class Principal extends JFrame
 		mnNewMenu_2.add(mntmNewMenuItem_12);
 
 		JMenu mnCliente = new JMenu("Cliente");
+		mnCliente.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnCliente);
 
 		JMenuItem mntmMisContratos = new JMenuItem("Mis Contratos");
@@ -334,9 +338,11 @@ public class Principal extends JFrame
 		menuBar.add(Box.createHorizontalGlue());
 
 		JMenu mnSesion = new JMenu("Sesi\u00F3n");
+		mnSesion.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnSesion);
 
 		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+		mntmCerrarSesion.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		mntmCerrarSesion.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -351,6 +357,7 @@ public class Principal extends JFrame
 		mnSesion.add(mntmCerrarSesion);
 
 		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		mntmSalir.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)

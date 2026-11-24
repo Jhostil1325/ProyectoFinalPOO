@@ -17,6 +17,8 @@ import logico.Administrativo;
 import logico.Altice;
 import logico.Comercial;
 import logico.Empleado;
+import java.awt.Font;
+import java.awt.Color;
 
 public class RegEmpleado extends JDialog
 {
@@ -37,21 +39,24 @@ public class RegEmpleado extends JDialog
 		setTitle("Registrar Empleado");
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 430, 450);
+		setBounds(100, 100, 430, 501);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 54, 424, 412);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(null);
-		getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(panel);
 
 		JLabel lblId = new JLabel("ID:");
 		lblId.setBounds(30, 20, 100, 14);
 		panel.add(lblId);
 
 		txtId = new JTextField();
+		txtId.setForeground(new Color(0, 168, 232));
+		txtId.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtId.setEditable(false);
 		txtId.setText(Altice.getInstance().generarIdEmpleado());
 		txtId.setBounds(30, 40, 170, 25);
@@ -131,6 +136,7 @@ public class RegEmpleado extends JDialog
 		panel.add(txtExtra);
 
 		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnRegistrar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -142,6 +148,7 @@ public class RegEmpleado extends JDialog
 		panel.add(btnRegistrar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCancelar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -151,6 +158,18 @@ public class RegEmpleado extends JDialog
 		});
 		btnCancelar.setBounds(220, 370, 100, 28);
 		panel.add(btnCancelar);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(18, 18, 18));
+		panel_1.setBounds(0, 0, 424, 56);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("ALTICE | REGISTRAR EMPLEADO");
+		lblNewLabel.setForeground(new Color(0, 168, 232));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 0, 400, 56);
+		panel_1.add(lblNewLabel);
 	}
 
 	private void actualizarCampoExtra()

@@ -23,6 +23,7 @@ import logico.Plan;
 import logico.Servicio;
 import logico.Telefonia;
 import logico.Television;
+import java.awt.Font;
 
 public class RegPlan extends JDialog
 {
@@ -42,23 +43,25 @@ public class RegPlan extends JDialog
 		setTitle("Registrar Plan");
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 680, 440);
+		setBounds(100, 100, 678, 473);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 52, 672, 379);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(null);
-		getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(panel);
 
 		JLabel lblId = new JLabel("ID Plan:");
 		lblId.setBounds(30, 20, 100, 14);
 		panel.add(lblId);
 
 		txtId = new JTextField();
+		txtId.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtId.setEditable(false);
-		txtId.setForeground(Color.BLACK);
+		txtId.setForeground(new Color(0, 168, 232));
 		txtId.setText(Altice.getInstance().generarIdPlan());
 		txtId.setBounds(30, 40, 250, 25);
 		panel.add(txtId);
@@ -68,6 +71,8 @@ public class RegPlan extends JDialog
 		panel.add(lblPrecio);
 
 		txtPrecio = new JTextField("0.00");
+		txtPrecio.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtPrecio.setForeground(new Color(0, 168, 232));
 		txtPrecio.setBounds(310, 40, 330, 25);
 		panel.add(txtPrecio);
 
@@ -94,6 +99,7 @@ public class RegPlan extends JDialog
 		panel.add(scrollDisp);
 
 		JButton btnAgregar = new JButton(">>");
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAgregar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -105,6 +111,7 @@ public class RegPlan extends JDialog
 		panel.add(btnAgregar);
 
 		JButton btnQuitar = new JButton("<<");
+		btnQuitar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnQuitar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -138,6 +145,7 @@ public class RegPlan extends JDialog
 		panel.add(scrollInc);
 
 		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnRegistrar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -149,6 +157,7 @@ public class RegPlan extends JDialog
 		panel.add(btnRegistrar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCancelar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -158,6 +167,18 @@ public class RegPlan extends JDialog
 		});
 		btnCancelar.setBounds(340, 345, 100, 28);
 		panel.add(btnCancelar);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(18, 18, 18));
+		panel_1.setBounds(0, 0, 695, 51);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("ALTICE | REGISTRAR PLAN");
+		lblNewLabel.setForeground(new Color(0, 168, 232));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 0, 647, 51);
+		panel_1.add(lblNewLabel);
 
 		cargarServicios();
 	}
