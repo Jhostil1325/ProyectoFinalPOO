@@ -1,7 +1,9 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,8 +32,8 @@ import logico.Television;
 public class ListServicio extends JDialog
 {
 	private static final long serialVersionUID = 1L;
-	private DefaultTableModel model;
 	private JTable table;
+	private DefaultTableModel model;
 
 	public ListServicio()
 	{
@@ -40,7 +42,18 @@ public class ListServicio extends JDialog
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 780, 440);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
+
+		JPanel panelHeader = new JPanel();
+		panelHeader.setBackground(new Color(18, 18, 18));
+		panelHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 15));
+
+		JLabel lblTitulo = new JLabel("ALTICE | LISTADO DE SERVICIOS");
+		lblTitulo.setForeground(new Color(0, 168, 232));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panelHeader.add(lblTitulo);
+		getContentPane().add(panelHeader, BorderLayout.NORTH);
 
 		String[] columnas = { "ID", "Tipo", "Descripci\u00F3n", "Detalles", "Precio Base", "En Plan" };
 		model = new DefaultTableModel(columnas, 0)
@@ -56,12 +69,13 @@ public class ListServicio extends JDialog
 
 		table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setBackground(new Color(30, 30, 30));
+		table.getTableHeader().setForeground(Color.WHITE);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBorder(new EmptyBorder(10, 10, 5, 10));
+		scroll.setBorder(new EmptyBorder(10, 15, 5, 15));
 		getContentPane().add(scroll, BorderLayout.CENTER);
 
-		JPanel panelBotones = new JPanel();
-		panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		JPanel panelSur = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 10));
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener()
@@ -71,7 +85,7 @@ public class ListServicio extends JDialog
 				modificarServicio();
 			}
 		});
-		panelBotones.add(btnModificar);
+		panelSur.add(btnModificar);
 
 		JButton btnCerrar = new JButton("Cerrar");
 		btnCerrar.addActionListener(new ActionListener()
@@ -81,9 +95,8 @@ public class ListServicio extends JDialog
 				dispose();
 			}
 		});
-		panelBotones.add(btnCerrar);
-
-		getContentPane().add(panelBotones, BorderLayout.SOUTH);
+		panelSur.add(btnCerrar);
+		getContentPane().add(panelSur, BorderLayout.SOUTH);
 
 		cargarServicios();
 	}
