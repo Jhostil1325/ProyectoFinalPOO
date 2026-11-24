@@ -137,6 +137,12 @@ public class Principal extends JFrame
 		mnNewMenu.add(mntmNewMenuItem_1);
 
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Venta de Productos");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentaProducto venta = new VentaProducto();
+				venta.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_2);
 
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Generar Factura del Mes");
@@ -262,6 +268,12 @@ public class Principal extends JFrame
 		mnNewMenu_5.add(mntmNewMenuItem_14);
 
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Inventario de Productos");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListProducto inv = new ListProducto();
+				inv.setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_7);
 
 		JMenu mnNewMenu_2 = new JMenu("Reportes");

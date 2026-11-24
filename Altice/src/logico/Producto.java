@@ -15,10 +15,10 @@ public class Producto implements Serializable{
 	private static int cont =1;
 	
 	
-	public Producto(String id, String descripcion, String marca, String tipoProducto, int stock, boolean disponible,
+	public Producto(String descripcion, String marca, String tipoProducto, int stock, boolean disponible,
 			boolean estado, float precio) {
 		super();
-		this.id = "PRD-"+cont;
+		this.id = "PRD-" + cont;
 		cont++;
 		this.descripcion = descripcion;
 		this.marca = marca;

@@ -580,4 +580,81 @@ public class Altice implements Serializable
 		contrato.setMetodoPago(metodoPago);
 		contrato.setActivo(activo);
 	}
+	
+	public void registrarProducto(Producto p)
+	{
+		misProductos.add(p);
+	}
+
+	public ArrayList<Producto> obtenerProductosDisponibles()
+	{
+		ArrayList<Producto> disponibles = new ArrayList<>();
+		for (int i = 0; i < misProductos.size(); i++)
+		{
+			Producto p = misProductos.get(i);
+			if (p.isEstado() && p.getStock() > 0)
+			{
+				disponibles.add(p);
+			}
+		}
+		return disponibles;
+	}
+
+	public float procesarVentaProductos(Cliente cliente, Comercial facilitador, ArrayList<DetalleVenta> carrito,
+			String metodoPago, float montoRecibido)
+	{
+		if (carrito == null || carrito.isEmpty())
+		{
+			return -1.0f;
+		}
+
+		float subtotal = 0.0f;
+		for (int i = 0; i < carrito.size(); i++)
+		{
+			DetalleVenta d = carrito.get(i);
+			subtotal += d.getMiProducto().getPrecio() * d.getCantidad();
+		}
+
+		float itbis = subtotal * 0.18f;
+		float total = subtotal + itbis;
+
+		if (montoRecibido < total)
+		{
+			return -1.0f;
+		}
+
+		float devuelta = montoRecibido - total;
+		Date hoy = new Date();
+
+		for (int i = 0; i < carrito.size(); i++)
+		{
+			DetalleVenta d = carrito.get(i);
+			Producto prod = d.getMiProducto();
+			int nuevoStock = prod.getStock() - d.getCantidad();
+			if (nuevoStock < 0)
+			{
+				nuevoStock = 0;
+			}
+			prod.setStock(nuevoStock);
+			prod.setDisponible(nuevoStock > 0);
+		}
+
+		Pago facturaVenta = new Pago(generarIdPago(), cliente, facilitador, metodoPago,
+				new ArrayList<DetalleVenta>(carrito), hoy, total, itbis, montoRecibido, devuelta, null);
+		facturaVenta.setPagada(true);
+
+		misPagos.add(facturaVenta);
+		if (cliente != null)
+		{
+			cliente.getMisPagos().add(facturaVenta);
+		}
+
+		if (facilitador != null)
+		{
+			facilitador.setComisionmensual(calcularComisionMensual(facilitador));
+			facilitador.setComisiontotal(facilitador.getComisiontotal() + (total * PORCENTAJE_COMISION));
+		}
+
+		return devuelta;
+	}
 }
