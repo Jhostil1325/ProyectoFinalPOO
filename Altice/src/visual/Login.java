@@ -190,7 +190,7 @@ public class Login extends JFrame
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(44, 13, 325, 208);
 		contentPane.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\esthe\\OneDrive - Pontificia Universidad Cat\u00F3lica Madre y Maestra\\Desktop\\Altice logo.png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\jhost\\git\\ProyectoFinalPOO\\Altice\\src\\IMG\\Altice logo.png"));
 	}
 
 	private void iniciarSesion()
