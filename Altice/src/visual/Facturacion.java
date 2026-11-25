@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,25 +54,39 @@ public class Facturacion extends JDialog
 		setTitle("Facturaci\u00F3n");
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 689, 520);
+		setBounds(100, 100, 730, 610);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 
+		JPanel panelHeader = new JPanel();
+		panelHeader.setBackground(new Color(18, 18, 18));
+		panelHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 15));
+		JLabel lblHeader = new JLabel("ALTICE | FACTURACI\u00D3N Y COBRO DE SERVICIOS");
+		lblHeader.setForeground(new Color(0, 168, 232));
+		lblHeader.setFont(new Font("Tahoma", Font.BOLD, 16));
+		panelHeader.add(lblHeader);
+		getContentPane().add(panelHeader, BorderLayout.NORTH);
+
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(24, 24, 24));
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(null);
 		getContentPane().add(panel, BorderLayout.CENTER);
 
 		JLabel lblCedula = new JLabel("C\u00E9dula del Cliente:");
-		lblCedula.setBounds(25, 20, 140, 14);
+		lblCedula.setForeground(Color.WHITE);
+		lblCedula.setBounds(25, 18, 140, 14);
 		panel.add(lblCedula);
 
 		txtCedula = new JTextField();
-		txtCedula.setBounds(25, 40, 210, 25);
+		txtCedula.setBounds(25, 38, 180, 26);
 		panel.add(txtCedula);
 
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(0, 136, 255));
+		btnBuscar.setForeground(Color.WHITE);
+		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscar.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -79,37 +94,40 @@ public class Facturacion extends JDialog
 				buscarCliente();
 			}
 		});
-		btnBuscar.setBounds(245, 40, 90, 25);
+		btnBuscar.setBounds(215, 38, 90, 26);
 		panel.add(btnBuscar);
 
 		JLabel lblCliente = new JLabel("Cliente:");
-		lblCliente.setBounds(25, 80, 100, 14);
+		lblCliente.setForeground(Color.WHITE);
+		lblCliente.setBounds(25, 78, 100, 14);
 		panel.add(lblCliente);
 
 		txtCliente = new JTextField();
 		txtCliente.setEditable(false);
-		txtCliente.setForeground(Color.BLACK);
-		txtCliente.setBounds(25, 100, 270, 25);
+		txtCliente.setBackground(new Color(40, 40, 40));
+		txtCliente.setForeground(new Color(0, 168, 232));
+		txtCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtCliente.setBounds(25, 98, 260, 26);
 		panel.add(txtCliente);
 
 		JLabel lblEstado = new JLabel("Estado Servicio:");
-		lblEstado.setBounds(310, 80, 120, 14);
+		lblEstado.setForeground(Color.WHITE);
+		lblEstado.setBounds(300, 78, 120, 14);
 		panel.add(lblEstado);
 
 		txtEstado = new JTextField();
 		txtEstado.setEditable(false);
-		txtEstado.setForeground(Color.BLACK);
-		txtEstado.setBounds(310, 100, 150, 25);
+		txtEstado.setBounds(300, 98, 150, 26);
 		panel.add(txtEstado);
 
 		JLabel lblDeuda = new JLabel("Deuda Acumulada:");
-		lblDeuda.setBounds(475, 80, 130, 14);
+		lblDeuda.setForeground(Color.WHITE);
+		lblDeuda.setBounds(465, 78, 130, 14);
 		panel.add(lblDeuda);
 
 		txtDeudaTotal = new JTextField();
 		txtDeudaTotal.setEditable(false);
-		txtDeudaTotal.setForeground(Color.BLACK);
-		txtDeudaTotal.setBounds(475, 100, 170, 25);
+		txtDeudaTotal.setBounds(465, 98, 220, 26);
 		panel.add(txtDeudaTotal);
 
 		String[] columnas = { "ID Factura", "Fecha Emisi\u00F3n", "Contrato / Plan", "ITBIS (18%)", "Total" };
@@ -126,12 +144,16 @@ public class Facturacion extends JDialog
 
 		table = new JTable(model);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setBackground(new Color(30, 30, 30));
+		table.getTableHeader().setForeground(Color.WHITE);
 		JScrollPane scroll = new JScrollPane(table);
-		scroll.setBounds(25, 140, 620, 165);
+		scroll.setBounds(25, 138, 660, 185);
 		panel.add(scroll);
 
 		rdbtnMasAntigua = new JRadioButton("Pagar factura m\u00E1s antigua");
 		rdbtnMasAntigua.setSelected(true);
+		rdbtnMasAntigua.setBackground(new Color(24, 24, 24));
+		rdbtnMasAntigua.setForeground(Color.WHITE);
 		rdbtnMasAntigua.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -139,10 +161,12 @@ public class Facturacion extends JDialog
 				calcularMontoAPagar();
 			}
 		});
-		rdbtnMasAntigua.setBounds(25, 315, 240, 23);
+		rdbtnMasAntigua.setBounds(25, 333, 240, 23);
 		panel.add(rdbtnMasAntigua);
 
 		rdbtnTodas = new JRadioButton("Pagar todas las facturas pendientes");
+		rdbtnTodas.setBackground(new Color(24, 24, 24));
+		rdbtnTodas.setForeground(Color.WHITE);
 		rdbtnTodas.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -150,7 +174,7 @@ public class Facturacion extends JDialog
 				calcularMontoAPagar();
 			}
 		});
-		rdbtnTodas.setBounds(280, 315, 250, 23);
+		rdbtnTodas.setBounds(280, 333, 280, 23);
 		panel.add(rdbtnTodas);
 
 		ButtonGroup grupo = new ButtonGroup();
@@ -158,7 +182,8 @@ public class Facturacion extends JDialog
 		grupo.add(rdbtnTodas);
 
 		JLabel lblMetodo = new JLabel("M\u00E9todo de Pago:");
-		lblMetodo.setBounds(25, 355, 120, 14);
+		lblMetodo.setForeground(Color.WHITE);
+		lblMetodo.setBounds(25, 378, 120, 14);
 		panel.add(lblMetodo);
 
 		cbxMetodoPago = new JComboBox<String>();
@@ -172,22 +197,26 @@ public class Facturacion extends JDialog
 				actualizarEstadoMetodoPago();
 			}
 		});
-		cbxMetodoPago.setBounds(25, 375, 140, 25);
+		cbxMetodoPago.setBounds(25, 398, 150, 26);
 		panel.add(cbxMetodoPago);
 
 		JLabel lblTotalPagar = new JLabel("Total a Pagar:");
-		lblTotalPagar.setBounds(180, 355, 120, 14);
+		lblTotalPagar.setForeground(new Color(0, 168, 232));
+		lblTotalPagar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTotalPagar.setBounds(195, 378, 120, 14);
 		panel.add(lblTotalPagar);
 
 		txtTotalPagar = new JTextField();
 		txtTotalPagar.setEditable(false);
-		txtTotalPagar.setForeground(Color.BLACK);
-		txtTotalPagar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtTotalPagar.setBounds(180, 375, 140, 25);
+		txtTotalPagar.setBackground(new Color(40, 40, 40));
+		txtTotalPagar.setForeground(new Color(0, 168, 232));
+		txtTotalPagar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtTotalPagar.setBounds(195, 398, 155, 26);
 		panel.add(txtTotalPagar);
 
 		JLabel lblRecibido = new JLabel("Monto Recibido:");
-		lblRecibido.setBounds(335, 355, 120, 14);
+		lblRecibido.setForeground(Color.WHITE);
+		lblRecibido.setBounds(370, 378, 120, 14);
 		panel.add(lblRecibido);
 
 		txtMontoRecibido = new JTextField();
@@ -198,21 +227,24 @@ public class Facturacion extends JDialog
 				calcularDevuelta();
 			}
 		});
-		txtMontoRecibido.setBounds(335, 375, 145, 25);
+		txtMontoRecibido.setBounds(370, 398, 145, 26);
 		panel.add(txtMontoRecibido);
 
 		JLabel lblDevuelta = new JLabel("Devuelta:");
-		lblDevuelta.setBounds(495, 355, 120, 14);
+		lblDevuelta.setForeground(Color.WHITE);
+		lblDevuelta.setBounds(530, 378, 120, 14);
 		panel.add(lblDevuelta);
 
 		txtDevuelta = new JTextField();
 		txtDevuelta.setEditable(false);
-		txtDevuelta.setForeground(Color.BLACK);
 		txtDevuelta.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtDevuelta.setBounds(495, 375, 150, 25);
+		txtDevuelta.setBounds(530, 398, 155, 26);
 		panel.add(txtDevuelta);
 
 		btnProcesar = new JButton("Procesar Pago");
+		btnProcesar.setBackground(new Color(0, 136, 255));
+		btnProcesar.setForeground(Color.WHITE);
+		btnProcesar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnProcesar.setEnabled(false);
 		btnProcesar.addActionListener(new ActionListener()
 		{
@@ -221,7 +253,7 @@ public class Facturacion extends JDialog
 				procesarPago();
 			}
 		});
-		btnProcesar.setBounds(200, 435, 130, 30);
+		btnProcesar.setBounds(415, 455, 145, 30);
 		panel.add(btnProcesar);
 
 		JButton btnCancelar = new JButton("Cerrar");
@@ -232,7 +264,7 @@ public class Facturacion extends JDialog
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(345, 435, 120, 30);
+		btnCancelar.setBounds(575, 455, 110, 30);
 		panel.add(btnCancelar);
 	}
 
@@ -411,7 +443,7 @@ public class Facturacion extends JDialog
 			cargarDatosCliente();
 		}
 	}
-	
+
 	private void actualizarEstadoMetodoPago()
 	{
 		boolean esEfectivo = cbxMetodoPago.getSelectedItem().toString().equals("Efectivo");
