@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,6 +39,7 @@ public class Login extends JFrame
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtContrasena;
+	private JCheckBox chckbxMostrar;
 
 	public static void main(String[] args)
 	{
@@ -126,7 +128,7 @@ public class Login extends JFrame
 	{
 		setTitle("Altice - Inicio de Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 425, 484);
+		setBounds(100, 100, 425, 505);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		contentPane = new JPanel();
@@ -139,7 +141,7 @@ public class Login extends JFrame
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(18, 18, 18));
-		panel.setBounds(12, 218, 392, 218);
+		panel.setBounds(0, 211, 419, 249);
 		panel.setBorder(new LineBorder(new Color(18, 18, 18)));
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -147,19 +149,19 @@ public class Login extends JFrame
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setForeground(new Color(255, 255, 255));
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblUsuario.setBounds(153, 13, 100, 25);
+		lblUsuario.setBounds(163, 13, 100, 25);
 		panel.add(lblUsuario);
 
 		txtUsuario = new JTextField();
 		txtUsuario.setForeground(new Color(0, 0, 255));
-		txtUsuario.setBounds(45, 48, 300, 25);
+		txtUsuario.setBounds(58, 51, 300, 25);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a:");
 		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblContrasena.setForeground(new Color(255, 255, 255));
-		lblContrasena.setBounds(133, 86, 130, 25);
+		lblContrasena.setBounds(153, 89, 130, 25);
 		panel.add(lblContrasena);
 
 		txtContrasena = new JPasswordField();
@@ -170,22 +172,43 @@ public class Login extends JFrame
 				iniciarSesion();
 			}
 		});
-		txtContrasena.setBounds(45, 117, 300, 25);
+		txtContrasena.setBounds(58, 124, 300, 25);
 		panel.add(txtContrasena);
-
-		JButton btnLogin = new JButton("Iniciar Sesi\u00F3n");                      
-		btnLogin.setBackground(new Color(255, 255, 255));  
-		btnLogin.setForeground(new Color(0, 168, 232));             
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnLogin.addActionListener(new ActionListener()
+		
+		chckbxMostrar = new JCheckBox("Mostrar contrase\u00F1a");
+		chckbxMostrar.setBackground(new Color(18, 18, 18));
+		chckbxMostrar.setForeground(new Color(255, 255, 255));
+		chckbxMostrar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		chckbxMostrar.addActionListener(new ActionListener()
 		{
-		    public void actionPerformed(ActionEvent e)
-		    {
-		        iniciarSesion();
-		    }
+			public void actionPerformed(ActionEvent e)
+			{
+				if (chckbxMostrar.isSelected())
+				{
+					txtContrasena.setEchoChar((char) 0);
+				}
+				else
+				{
+					txtContrasena.setEchoChar('\u2022');
+				}
+			}
 		});
-		btnLogin.setBounds(122, 166, 154, 39);
-		panel.add(btnLogin);
+		chckbxMostrar.setBounds(58, 158, 180, 23);
+		panel.add(chckbxMostrar);
+		
+				JButton btnLogin = new JButton("Iniciar Sesi\u00F3n");
+				btnLogin.setBounds(129, 197, 154, 39);
+				panel.add(btnLogin);
+				btnLogin.setBackground(new Color(255, 255, 255));  
+				btnLogin.setForeground(new Color(0, 168, 232));             
+				btnLogin.setFont(new Font("Tahoma", Font.BOLD, 17));
+				btnLogin.addActionListener(new ActionListener()
+				{
+				    public void actionPerformed(ActionEvent e)
+				    {
+				        iniciarSesion();
+				    }
+				});
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(44, 13, 325, 208);

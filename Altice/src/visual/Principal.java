@@ -346,7 +346,15 @@ public class Principal extends JFrame
 			}
 		});
 		mnCliente.add(mntmMisFacturas);
-
+		
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Mi Usuario");
+		mntmNewMenuItem_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MiUsuario miUsuario = new MiUsuario();
+				miUsuario.setVisible(true);
+			}
+		});
+		mnCliente.add(mntmNewMenuItem_15);
 		menuBar.add(Box.createHorizontalGlue());
 
 		JMenu mnSesion = new JMenu("Sesi\u00F3n");
@@ -393,7 +401,7 @@ public class Principal extends JFrame
 				mnNewMenu.setEnabled(true);
 				mnNewMenu_1.setEnabled(true);
 				mnNewMenu_2.setEnabled(true);
-				mnCliente.setEnabled(true);
+				mnCliente.setEnabled(false);
 			}
 			else if (logueado instanceof Comercial)
 			{
