@@ -128,7 +128,7 @@ public class Login extends JFrame
 	{
 		setTitle("Altice - Inicio de Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 425, 505);
+		setBounds(100, 100, 429, 512);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		contentPane = new JPanel();

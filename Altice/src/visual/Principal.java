@@ -324,6 +324,36 @@ public class Principal extends JFrame
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_12);
+		
+		JMenu mnNewMenu_7 = new JMenu("Estadisticas");
+		mnNewMenu_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_2.add(mnNewMenu_7);
+		
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Clientes al D\u00EDa");
+		mntmNewMenuItem_16.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EstadisticaClientes estCli = new EstadisticaClientes();
+				estCli.setVisible(true);
+			}
+		});
+		mnNewMenu_7.add(mntmNewMenuItem_16);
+		
+		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Ingresos por Pago");
+		mntmNewMenuItem_17.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_7.add(mntmNewMenuItem_17);
+		
+		JMenuItem mntmNewMenuItem_18 = new JMenuItem("Servicios Solicitados");
+		mntmNewMenuItem_18.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenu_7.add(mntmNewMenuItem_18);
 
 		JMenu mnCliente = new JMenu("Cliente");
 		mnCliente.setFont(new Font("Segoe UI", Font.BOLD, 15));
