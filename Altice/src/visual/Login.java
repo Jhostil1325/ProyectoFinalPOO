@@ -153,7 +153,7 @@ public class Login extends JFrame
 		panel.add(lblUsuario);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setForeground(new Color(0, 0, 255));
+		txtUsuario.setForeground(new Color(0, 168, 232));
 		txtUsuario.setBounds(58, 51, 300, 25);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
@@ -165,6 +165,7 @@ public class Login extends JFrame
 		panel.add(lblContrasena);
 
 		txtContrasena = new JPasswordField();
+		txtContrasena.setForeground(new Color(0, 168, 232));
 		txtContrasena.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)

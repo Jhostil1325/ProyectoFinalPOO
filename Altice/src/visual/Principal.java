@@ -344,6 +344,8 @@ public class Principal extends JFrame
 		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Ingresos por Pago");
 		mntmNewMenuItem_17.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EstadisticaPagos estPag = new EstadisticaPagos();
+				estPag.setVisible(true);
 			}
 		});
 		mnNewMenu_7.add(mntmNewMenuItem_17);
@@ -351,6 +353,8 @@ public class Principal extends JFrame
 		JMenuItem mntmNewMenuItem_18 = new JMenuItem("Servicios Solicitados");
 		mntmNewMenuItem_18.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EstadisticaServicios estSrv = new EstadisticaServicios();
+				estSrv.setVisible(true);
 			}
 		});
 		mnNewMenu_7.add(mntmNewMenuItem_18);
